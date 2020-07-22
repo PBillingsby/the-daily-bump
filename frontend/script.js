@@ -5,23 +5,26 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 // BABY
 class Baby {
-  constructor(due_date, mother, father) {
+  constructor(due_date, mother, father, days_until_date, weeks_until_date) {
     this.due_date = due_date,
     this.mother = mother,
-    this.father = father
+    this.father = father,
+    this.days_until_date = days_until_date,
+    this.weeks_until_date = weeks_until_date
   }
 }
 function fetchBaby() {
+  // event.preventDefault()
   fetch(BASEURL + 'babies/1')
   .then(resp => resp.json())
   .then(babyObject => {
     if (!babyObject.error) {
       document.getElementById('due_date_form').style.display = "none"
-      let baby = new Baby(babyObject.due_date, babyObject.mother, babyObject.father)
+      let baby = new Baby(babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_date, babyObject.weeks_until_date)
       handleBaby(baby)
     }
     else {
-      document.getElementById('due_date_form').style.display = "block"
+      document.getElementById('due_date_form').style.display = "none"
     }
   })
 }
@@ -41,17 +44,19 @@ function newBaby() {
     },
     body: JSON.stringify(newBaby)
   })
+  .then(resp => resp.json())
+  .then(obj => {
+    document.getElementById('due_date_form').style.display = "none"
+  })
 }
 
 function handleBaby(babyObject) {
-  let formattedDate = babyObject.due_date.to_s
-  debugger
-  document.getElementById('due_date_form').style.display = "none"
   document.getElementById('baby-information').innerHTML = `
   <div class="card" style="width: 10rem;">
-    <p>Due Date: ${formattedDate}</p>
+    <p>Due Date: ${babyObject.due_date}</p>
     <p>Mother: ${babyObject.mother}</p>
     <p>Father: ${babyObject.father}</p>
+    <p>Days Until: ${babyObject.days_until_date}
   </div>`
 }
 // APPOINTMENTS
