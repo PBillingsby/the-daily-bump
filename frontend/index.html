@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <title>The Daily Bump</title>
+</head>
+<body>
+  <header><h4>The Daily Bump</h4></header>
+  <div class="container" onload="babyForm()">
+    <div id="baby-information">
+      <!-- IF THERE IS A BABY, INFO WILL APPEAR HERE AND BELOW FORM WILL DISAPPEAR -->
+      <div id="due_date_form">
+        <form class="p-3" onsubmit="newBaby()">
+          <div class="form-group">
+            <input type="text" name="mother_name" id="mother_name" placeholder="Mother Name">
+          </div>
+          <div class="form-group">
+            <input type="text" name="father_name" id="father_name" placeholder="Father Name">
+          </div>
+          <label>Due Date</label>
+      
+          <div class="form-group">
+            <input type="date" name="due_date" id="due_date">
+          </div>
+          <input type="submit" value="Add Baby">
+        </form>
+      </div>
+    </div>
+    <div id="appointment-form">
+      <button id="add-appointment">Add Appointment</button>
+      <!-- APPOINTMENT FORM -->
+    </div>
+    
+    
+    
+  </div>
+</body>
+</html>
