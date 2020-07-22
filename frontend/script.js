@@ -2,25 +2,7 @@ const BASEURL = 'http://localhost:3000/'
 document.addEventListener('DOMContentLoaded', () => {
   event.preventDefault()
 })
-document.getElementById('baby-form').innerHTML = `
-  <div id="due_date_form">
-    <form class="p-3" onsubmit="newBaby();return false">
-      <div class="form-group">
-        <input type="text" name="mother_name" id="mother_name" placeholder="Mother Name">
-      </div>
-      <div class="form-group">
-        <input type="text" name="father_name" id="father_name" placeholder="Father Name">
-      </div>
-      <label>Due Date</label>
-  
-      <div class="form-group">
-        <input type="date" name="due_date" id="due_date">
-      </div>
-      <input type="submit" value="Add Baby">
-    </form>
-  </div>`
-
-}
+    
 // BABY
 class Baby {
   constructor(due_date, mother, father, days_until_date, weeks_until_date) {
@@ -33,7 +15,7 @@ class Baby {
 }
 function newBaby() {
 
-  let newBaby = {
+  let baby = {
     due_date: document.getElementById('due_date').value,
     mother: document.getElementById('mother_name').value,
     father: document.getElementById('father_name').value
@@ -44,7 +26,7 @@ function newBaby() {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
-    body: JSON.stringify(newBaby)
+    body: JSON.stringify(baby)
   })
   // REMOVES BABY FORM AND FETCHES CREATED BABY
   .then(resp => resp.json())
@@ -53,7 +35,7 @@ function newBaby() {
   })
 }
 
-function fetchBaby(e) {
+function fetchBaby() {
   fetch(BASEURL + 'babies/1')
   .then(resp => resp.json())
   // IF BABY EXISTS CREATE NEW BABY OBJECT AND SEND TO handleBaby() FUNCTION
@@ -68,7 +50,9 @@ function fetchBaby(e) {
 
 function handleBaby(babyObject) {
   // CREATE HTML FOR BABY INFORMATION DIV
-  document.getElementById('baby-card').innerHTML = `
+  if (babyObject) {
+    document.getElementById('baby-form').style.display = "none"
+    document.getElementById('baby-card').innerHTML = `
   <div class="card p-1" style="width: 10rem;">
     <strong>Due Date:</strong> <p>${babyObject.due_date}</p>
     <strong>Mother:</strong>  <p>${babyObject.mother}</p>
@@ -76,6 +60,9 @@ function handleBaby(babyObject) {
     <strong>Days Until:</strong> <p>${babyObject.days_until_date}</p>
     <strong>Weeks Until:</strong> <p>${babyObject.weeks_until_date}</p>
   </div>`
+  
+  }
+  
 }
 // APPOINTMENTS
 

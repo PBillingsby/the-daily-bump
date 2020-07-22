@@ -16,13 +16,26 @@
     <div id="baby-information">
       <!-- IF THERE IS A BABY, INFO WILL APPEAR HERE AND BELOW FORM WILL DISAPPEAR -->
       <div id="baby-card">
-        
-      </div>
-      <div id="baby-form">
 
       </div>
-      <!-- IF THERE IS NO BABY, A FORM WILL GO HERE -->
+      <div id="baby-form">
+        <form class="p-3" onsubmit="newBaby();return false">
+        <div class="form-group">
+          <input type="text" name="mother_name" id="mother_name" placeholder="Mother Name">
+        </div>
+        <div class="form-group">
+          <input type="text" name="father_name" id="father_name" placeholder="Father Name">
+        </div>
+        <label>Due Date</label>
+  
+        <div class="form-group">
+          <input type="date" name="due_date" id="due_date">
+        </div>
+        <input type="submit" value="Add Baby">
+      </form>
+      </div>
     </div>
+      <!-- IF THERE IS NO BABY, A FORM WILL GO HERE -->
     <div id="appointment-form">
       <button id="add-appointment">Add Appointment</button>
       <!-- APPOINTMENT FORM -->
