@@ -1,5 +1,4 @@
 class BabiesController < ApplicationController
-
   def create
     baby = Baby.create(babies_params)
     render json: baby

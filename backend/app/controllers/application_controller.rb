@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::API
-  before_action :calculate_dates, only: [:show]
-
+  before_action :calculate_dates, only: [:create, :show]
   def calculate_dates
     baby = Baby.find_by(id: params[:id])
     if baby
@@ -9,5 +8,4 @@ class ApplicationController < ActionController::API
       baby.update(weeks_until_date: baby.days_until_date / 7)
     end
   end
-
 end
