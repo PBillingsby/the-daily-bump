@@ -1,6 +1,7 @@
 const BASEURL = 'http://localhost:3000/'
 document.addEventListener('DOMContentLoaded', () => {
   event.preventDefault()
+  fetchBaby()
 })
     
 // BABY
@@ -54,12 +55,14 @@ function handleBaby(babyObject) {
     document.getElementById('baby-form').style.display = "none"
     document.getElementById('baby-card').innerHTML = `
   <div class="card p-1" style="width: 10rem;">
+    ${babySizes[babyObject.weeks_until_date]}
     <strong>Due Date:</strong> <p>${babyObject.due_date}</p>
     <strong>Mother:</strong>  <p>${babyObject.mother}</p>
     <strong>Father:</strong> <p>${babyObject.father}</p>
     <strong>Days Until:</strong> <p>${babyObject.days_until_date}</p>
     <strong>Weeks Until:</strong> <p>${babyObject.weeks_until_date}</p>
   </div>`
+
   
   }
   
@@ -73,6 +76,11 @@ function appointmentLoad() {
       <input type="text" name="doctor-name" id="doctor-name" placeholder="Doctor Name">
       <input type="date" name="appointment-date" id="appointment-date" placeholder="Date">
       <input type="submit">
-    </form>  `
+    </form>`
   })
+}
+
+
+let babySizes = {
+  23: '<img src="https://w0.pngwave.com/png/319/935/yellow-onion-red-onion-pearl-onion-white-onion-onion-png-clip-art.png" class="card-img-top">'
 }
