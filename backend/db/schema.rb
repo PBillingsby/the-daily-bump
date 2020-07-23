@@ -16,6 +16,12 @@ ActiveRecord::Schema.define(version: 2020_07_22_163415) do
   enable_extension "plpgsql"
 
   create_table "appointments", force: :cascade do |t|
+    t.bigint "baby_id"
+    t.date "appointment_date"
+    t.string "doctor_name"
+    t.string "location"
+    t.text "appointment_information"
+    t.index ["baby_id"], name: "index_appointments_on_baby_id"
   end
 
   create_table "babies", force: :cascade do |t|
