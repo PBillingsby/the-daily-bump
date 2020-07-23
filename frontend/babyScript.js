@@ -67,20 +67,6 @@ function handleBaby(babyObject) {
   }
   
 }
-// APPOINTMENTS
-
-function appointmentLoad() {
-  document.getElementById('add-appointment').addEventListener('click', () => {
-    document.getElementById('appointment-form').innerHTML = `
-    <form>
-      <input type="text" name="doctor-name" id="doctor-name" placeholder="Doctor Name">
-      <input type="date" name="appointment-date" id="appointment-date" placeholder="Date">
-      <input type="submit">
-    </form>`
-  })
-}
-
-
 let babySizes = {
-  23: '<img src="https://w0.pngwave.com/png/319/935/yellow-onion-red-onion-pearl-onion-white-onion-onion-png-clip-art.png" class="card-img-top">'
+  23: '<img src="https://freesvg.org/img/Onion-Zwiebel-lineart1.png" class="card-img-top" name="Onion">'
 }
