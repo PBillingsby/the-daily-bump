@@ -1,4 +1,7 @@
 const BASEURL = 'http://localhost:3000/'
+const baby = []
+
+
 document.addEventListener('DOMContentLoaded', () => {
   event.preventDefault()
   fetchBaby()
@@ -42,8 +45,11 @@ function fetchBaby() {
   // IF BABY EXISTS CREATE NEW BABY OBJECT AND SEND TO handleBaby() FUNCTION
   .then(babyObject => {
     if (!babyObject.error) {
-      let baby = new Baby(babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_date, babyObject.weeks_until_date)
-      handleBaby(baby)
+      let newBaby = new Baby(babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_date, babyObject.weeks_until_date)
+      baby.push(newBaby)
+      if (baby.length > 0) {
+        handleBaby(baby[0])
+      }
     }
   })
 }
@@ -51,7 +57,6 @@ function fetchBaby() {
 
 function handleBaby(babyObject) {
   // CREATE HTML FOR BABY INFORMATION DIV
-  if (babyObject) {
     document.getElementById('baby-form').style.display = "none"
     document.getElementById('baby-card').innerHTML = `
   <div class="card p-1" style="width: 10rem;">
@@ -62,10 +67,6 @@ function handleBaby(babyObject) {
     <strong>Days Until:</strong> <p>${babyObject.days_until_date}</p>
     <strong>Weeks Until:</strong> <p>${babyObject.weeks_until_date}</p>
   </div>`
-
-  
-  }
-  
 }
 let babySizes = {
   23: '<img src="https://freesvg.org/img/Onion-Zwiebel-lineart1.png" class="card-img-top" name="Onion">'

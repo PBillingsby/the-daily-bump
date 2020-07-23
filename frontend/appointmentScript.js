@@ -1,9 +1,8 @@
-const BASEURL = 'http://localhost:3000/'
-
+const APPOINTMENT_BASE_URL = 'http://localhost:3000/appointments'
 // WHEN ADD APPOINTMENT CLICKED, APPOINTMENT FORM APPENDED TO #appointment-form DIV
-function appointmentLoad() {
+function appointmentFormLoad() {
   document.getElementById('appointment-form').innerHTML = `
-  <form class="p-2" onsubmit="handleAppointment()">
+  <form id="appointmentForm" class="p-2" onsubmit="handleAppointment()">
     <div class="form-group">
       <label>Doctor Name</label>
       <input type="text" name="doctor-name" id="doctor-name" placeholder="Doctor Name">
@@ -16,22 +15,24 @@ function appointmentLoad() {
       <label>Location</label>
       <input type="text" name="loction" id="location" placeholder="Location">
     </div>
-    <div class="form-group">
-      <label>Additional Notes</label>
-      <textarea id="notes" placeholder="Notes"></textarea>
-    </div>
     <input type="submit">
-  </form>`
+  </form>
+  <div class="form-group">
+    <label>Additional Notes</label>
+    <textarea form="appointmentForm" id="notes" placeholder="Notes"></textarea>
+  </div>`
 }
 
 function handleAppointment() {
+  event.preventDefault()
   const appointment = {
-    doctorName: document.getElementById('doctor-name').value,
-    appointmentDate: document.getElementById('appointment-date').value,
+    baby_id: 1,
+    doctor_name: document.getElementById('doctor-name').value,
+    appointment_date: document.getElementById('appointment-date').value,
     location: document.getElementById('location').value,
-    notes: document.getElementById('notes').value
+    appointment_information: document.getElementById('notes').value
   }
-  fetch(BASEURL + 'appointments', {
+  fetch(APPOINTMENT_BASE_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -42,5 +43,19 @@ function handleAppointment() {
   .then(resp => resp.json())
   .then(appointmentObj => {
     debugger
+  })
+}
+
+function appointmentsLoad() {
+  fetch(APPOINTMENT_BASE_URL)
+  .then(resp => resp.json())
+  .then(appointments => {
+    let ul = document.createElement('ul')
+    appointments.forEach(apt => {
+      let li = document.createElement('li')
+      li.innerHTML = `<p>Date: ${apt.appointment_date}. Doctor: ${apt.doctor_name} Location: ${apt.location}</p>`
+      ul.appendChild(li)
+    })
+    document.getElementById('appointments').append(ul)
   })
 }

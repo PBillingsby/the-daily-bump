@@ -38,8 +38,12 @@
     </div>
       <!-- IF THERE IS NO BABY, A FORM WILL GO HERE -->
     <div id="appointment-form">
-      <button id="add-appointment" onclick="appointmentLoad()">Add Appointment</button>
+      <button id="add-appointment" class="m-2" onclick="appointmentFormLoad()">Add Appointment</button>
       <!-- APPOINTMENT FORM -->
+      <div>
+        <button id="add-appointment" class="m-2" onclick="appointmentsLoad()">View Appointments</button>
+        <div id="appointments"></div>
+      </div>
     </div>
   </div>
 </body>
