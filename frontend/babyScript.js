@@ -1,39 +1,29 @@
 const BASEURL = 'http://localhost:3000/'
-const localBabyObject = localStorage.getItem("babyObject")
+let localBabyObject = localStorage.getItem("babyObject")
 
 document.addEventListener('DOMContentLoaded', () => {
   event.preventDefault()
+  
   if (localBabyObject) {
     // If the baby object is in localStorage, show appointment form
     document.getElementById('appointment-form').style.display = "block"
-    handleTimes(localBabyObject)
+    handleTimes(JSON.parse(localBabyObject))
   }
   else {
     // Otherwise remove appointment form
     document.getElementById('appointment-form').style.display = "none"
   }
 })
-
-function handleTimes(babyObject) {
-    let parsedDueDate = Date.parse(babyObject.due_date)
-    let currentDateString = new Date()
-    let parsedCurrentDate = Date.parse(currentDateString)
-    let combinedDates = parsedDueDate - parsedCurrentDate
-    babyObject.days_until_due = Math.floor(combinedDates / (1000 * 60 * 60 * 24))
-    localStorage.setItem("babyObject", JSON.stringify(babyObject))
-    debugger
-    handleBaby(JSON.parse(babyObject))
-}
 // BABY
 class Baby {
   constructor(baby_id, due_date, mother, father, days_until_due) {
     this.baby_id = baby_id,
     this.due_date = due_date,
     this.mother = mother,
-    this.father = father,
-    this.days_until_due = null
+    this.father = father
   }
 }
+
 function newBaby() {
   event.preventDefault()
   let baby = {
@@ -52,11 +42,19 @@ function newBaby() {
   .then(resp => resp.json())
   .then(obj => {
     // Sets localStorage item babyObject with class constructed baby
-    localStorage.setItem('babyObject', JSON.stringify(new Baby(...Object.values(obj))))
-    handleBaby(JSON.parse(localStorage.babyObject))
+    handleTimes(obj)
   })
 }
 
+function handleTimes(babyObject) {
+  let parsedDueDate = Date.parse(babyObject.due_date)
+  let parsedCurrentDate = Date.parse(new Date())
+  // Calculates dates
+  let calculatedDates = Math.floor((parsedDueDate - parsedCurrentDate) / (1000 * 60 * 60 * 24))
+  babyObject["days_until_due"] = calculatedDates
+  window.localStorage.setItem('babyObject', JSON.stringify(babyObject))
+  handleBaby(babyObject)
+}
 
 function handleBaby(babyObject) {
   // CREATE HTML FOR BABY INFORMATION DIV
