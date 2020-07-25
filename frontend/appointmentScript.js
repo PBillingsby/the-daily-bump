@@ -1,5 +1,15 @@
 const APPOINTMENT_BASE_URL = 'http://localhost:3000/appointments'
 const appointments = []
+
+class Appointment {
+  constructor(doctorName, appointmentDate, appointmentLocation, appointmentNotes) {
+    this.doctorName = doctorName,
+    this.appointmentDate = appointmentDate,
+    this.appointmentLocation = appointmentLocation,
+    this.appointmentNotes = appointmentNotes
+  }
+}
+
 // WHEN ADD APPOINTMENT CLICKED, APPOINTMENT FORM APPENDED TO #appointment-form DIV
 function appointmentFormLoad() {
   document.getElementById('appointment-form').innerHTML = `
@@ -27,7 +37,7 @@ function appointmentFormLoad() {
 }
 
 function handleAppointment() {
-  // event.preventDefault()
+  event.preventDefault()
   const appointment = {
     baby_id: 1,
     doctor_name: document.getElementById('doctor-name').value,
@@ -44,7 +54,11 @@ function handleAppointment() {
     body: JSON.stringify(appointment)
   })
   .then(resp => resp.json())
-  .then(appointment => appointments.push(appointment))
+  .then(apt => {
+    debugger
+    let appointment = new Appointment(apt.doctor_name, apt.appointment_date, apt.location, apt.appointment_information)
+    appointments.push(appointment)
+  })
 }
 
 function appointmentsLoad() {

@@ -1,26 +1,24 @@
 const BASEURL = 'http://localhost:3000/'
-const baby = []
-
-
 document.addEventListener('DOMContentLoaded', () => {
+  const localBabyObject = localStorage.getItem("babyObject")
   event.preventDefault()
-  fetchBaby()
-  if (!baby.length <= 1) {
+  if (localBabyObject) {
     document.getElementById('appointment-form').style.display = "block"
   }
-  else {
-    document.getElementById('appointment-form').style.display = "none"
+  if (localBabyObject) {
+    handleBaby(JSON.parse(localBabyObject))
   }
 })
     
 // BABY
 class Baby {
-  constructor(due_date, mother, father, days_until_date, weeks_until_date) {
+  constructor(baby_id, due_date, mother, father) {
+    this.baby_id = baby_id,
     this.due_date = due_date,
     this.mother = mother,
-    this.father = father,
-    this.days_until_date = days_until_date,
-    this.weeks_until_date = weeks_until_date
+    this.father = father
+    // this.weeks_until_date = weeks_until_date,
+    // this.days_until_date = days_until_date
   }
 }
 function newBaby() {
@@ -38,25 +36,9 @@ function newBaby() {
     },
     body: JSON.stringify(baby)
   })
-  // REMOVES BABY FORM AND FETCHES CREATED BABY
   .then(resp => resp.json())
   .then(obj => {
-    fetchBaby()
-  })
-}
-
-function fetchBaby() {
-  fetch(BASEURL + 'babies/1')
-  .then(resp => resp.json())
-  // IF BABY EXISTS CREATE NEW BABY OBJECT AND SEND TO handleBaby() FUNCTION
-  .then(babyObject => {
-    if (!babyObject.error) {
-      let newBaby = new Baby(babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_date, babyObject.weeks_until_date)
-      baby.push(newBaby)
-      if (baby.length > 0) {
-        handleBaby(baby[0])
-      }
-    }
+    localStorage.setItem('babyObject', JSON.stringify(new Baby(...Object.values(obj))))
   })
 }
 
@@ -67,16 +49,11 @@ function handleBaby(babyObject) {
     document.getElementById('baby-card').innerHTML = `
   <div class="card bg-light mb-3">
     <div class="row no-gutters mx-auto">
-      <div class="col-md-4">
-        ${babySizes[babyObject.weeks_until_date]}
-      </div>
       <div class="col-md-8">
         <div class="card-body">
           <strong>Due Date:</strong> ${babyObject.due_date}
           <strong>Mother:</strong>  ${babyObject.mother}
           <strong>Father:</strong> ${babyObject.father}
-          <strong>Days Until:</strong> ${babyObject.days_until_date}
-          <strong>Weeks Until:</strong> ${babyObject.weeks_until_date}
         </div>
       </div>
     </div>
