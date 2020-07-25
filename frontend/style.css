@@ -1,4 +1,12 @@
+header {
+  width: 100%;
+  background-color: #D9E3DA;
+}
 .container {
   display: grid;
   grid-template-columns: 2fr 1fr;
+}
+
+.card-img {
+  width: 10vw !important;
 }
