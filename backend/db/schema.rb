@@ -28,8 +28,6 @@ ActiveRecord::Schema.define(version: 2020_07_22_163415) do
     t.date "due_date"
     t.string "mother"
     t.string "father"
-    t.integer "days_until_date"
-    t.integer "weeks_until_date"
   end
 
 end

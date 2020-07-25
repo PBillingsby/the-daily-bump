@@ -1,5 +1,6 @@
 class BabiesController < ApplicationController
   def create
+    params[:due_date] = params[:due_date].split("-").reverse.join("/")
     baby = Baby.create(babies_params)
     render json: baby
   end
