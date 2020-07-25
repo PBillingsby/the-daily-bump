@@ -2,10 +2,16 @@ header {
   width: 100%;
   background-color: #D9E3DA;
 }
+
+#content-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr
+}
+
 .container {
   display: grid;
 }
 
 .card-img {
-  width: 10vw !important;
+  width: 13vw !important;
 }

@@ -29,7 +29,7 @@ function appointmentFormLoad() {
       <label>Additional Notes</label>
       <input type="text" id="notes" placeholder="Notes">
     </div>
-    <div class="form-group text-center">  
+    <div class="form-group text-right">  
       <input type="submit">
     </div>
   </form>`

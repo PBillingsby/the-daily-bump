@@ -46,6 +46,9 @@ function handleTimes(babyObject) {
   let calculatedDates = Math.floor((parsedDueDate - parsedCurrentDate) / (1000 * 60 * 60 * 24))
   babyObject["days_until_due"] = calculatedDates
   window.localStorage.setItem('babyObject', JSON.stringify(babyObject))
+  if (!localBabyObject) {
+    location.reload()
+  }
   handleBaby(babyObject)
 }
 
@@ -54,19 +57,19 @@ function handleBaby(babyObject) {
   // CREATE HTML FOR BABY INFORMATION DIV
     document.getElementById('baby-form').style.display = "none"
     document.getElementById('baby-card').innerHTML = `
-  <div class="card bg-light">
+  <div class="card bg-light text-center">
     <div class="row no-gutters">
-      <div class="col p-2">
-        <img src="${babySizes[months_until_due][0]}" name="${babySizes[months_until_due][1]}" class="card-img text-center">
+      <div class="col">
+        <img src="${babySizes[months_until_due][0]}" name="${babySizes[months_until_due][1]}" class="card-img">
         <sub><strong>Baby Size:</strong> ${babySizes[months_until_due][1]}</sub>
-        </div>
-      <div class="col-lg-8 pt-3">
-        <div class="card-body d-inline-flex text-center">
-          <span class="p-3 m-2 border mx-auto"><h5>Due Date</h5> <p>${babyObject.due_date}</p></span>
-          <span class="p-3 m-2 border mx-auto"><h5>Mother</h5> <p>${babyObject.mother}</p></span>
-          <span class="p-3 m-2 border mx-auto"><h5>Father</h5> <p>${babyObject.father}</p></span>
-          <span class="p-3 m-2 border mx-auto"><h5>Days Until Due</h5> <p class="text-center">${babyObject.days_until_due}</p>
-
+      </div>
+      <div class="col-lg-8 pt-4 pl-4">
+        <div class="card-body d-inline-flex text-center mx-auto">
+          <span class="p-3 m-2 border mx-auto"><h6>Due Date</h6> <p>${babyObject.due_date}</p></span>
+          <span class="p-3 m-2 border mx-auto"><h6>Mother</h6> <p>${babyObject.mother}</p></span>
+          <span class="p-3 m-2 border mx-auto"><h6>Father</h6> <p>${babyObject.father}</p></span>
+          <span class="p-3 m-2 border mx-auto"><h6>Weeks Until Due</h6> <p class="text-center">${Math.floor(babyObject.days_until_due / 7)}</p></span>
+          <span class="p-3 m-2 border mx-auto"><h6>Days Until Due</h6> <p class="text-center">${babyObject.days_until_due}</p></span>
         </div>
       </div>
     </div>
