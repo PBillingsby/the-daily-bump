@@ -1,24 +1,37 @@
 const BASEURL = 'http://localhost:3000/'
+const localBabyObject = localStorage.getItem("babyObject")
+
 document.addEventListener('DOMContentLoaded', () => {
-  const localBabyObject = localStorage.getItem("babyObject")
   event.preventDefault()
   if (localBabyObject) {
+    // If the baby object is in localStorage, show appointment form
     document.getElementById('appointment-form').style.display = "block"
+    handleTimes(localBabyObject)
   }
-  if (localBabyObject) {
-    handleBaby(JSON.parse(localBabyObject))
+  else {
+    // Otherwise remove appointment form
+    document.getElementById('appointment-form').style.display = "none"
   }
 })
-    
+
+function handleTimes(babyObject) {
+    let parsedDueDate = Date.parse(babyObject.due_date)
+    let currentDateString = new Date()
+    let parsedCurrentDate = Date.parse(currentDateString)
+    let combinedDates = parsedDueDate - parsedCurrentDate
+    babyObject.days_until_due = Math.floor(combinedDates / (1000 * 60 * 60 * 24))
+    localStorage.setItem("babyObject", JSON.stringify(babyObject))
+    debugger
+    handleBaby(JSON.parse(babyObject))
+}
 // BABY
 class Baby {
-  constructor(baby_id, due_date, mother, father) {
+  constructor(baby_id, due_date, mother, father, days_until_due) {
     this.baby_id = baby_id,
     this.due_date = due_date,
     this.mother = mother,
-    this.father = father
-    // this.weeks_until_date = weeks_until_date,
-    // this.days_until_date = days_until_date
+    this.father = father,
+    this.days_until_due = null
   }
 }
 function newBaby() {
@@ -38,7 +51,9 @@ function newBaby() {
   })
   .then(resp => resp.json())
   .then(obj => {
+    // Sets localStorage item babyObject with class constructed baby
     localStorage.setItem('babyObject', JSON.stringify(new Baby(...Object.values(obj))))
+    handleBaby(JSON.parse(localStorage.babyObject))
   })
 }
 
