@@ -1,8 +1,7 @@
 const APPOINTMENT_BASE_URL = 'http://localhost:3000/appointments'
-const appointments = []
 
 class Appointment {
-  constructor(doctorName, appointmentDate, appointmentLocation, appointmentNotes) {
+  constructor(id, baby_id, doctorName, appointmentDate, appointmentLocation, appointmentNotes) {
     this.doctorName = doctorName,
     this.appointmentDate = appointmentDate,
     this.appointmentLocation = appointmentLocation,
@@ -53,15 +52,21 @@ function handleAppointment() {
     },
     body: JSON.stringify(appointment)
   })
-  .then(resp => resp.json())
-  .then(apt => {
-    debugger
-    let appointment = new Appointment(apt.doctor_name, apt.appointment_date, apt.location, apt.appointment_information)
-    appointments.push(appointment)
-  })
 }
 
 function appointmentsLoad() {
+  let appointments = []
+
+  fetch(APPOINTMENT_BASE_URL)
+  .then(resp => resp.json())
+  .then(apts => {
+    for (appointment in apts.data) {
+      let dataArray = apts.data[appointment].attributes
+      // doctorName, appointmentDate, appointmentLocation, appointmentNotes
+      let newAppointment = new Appointment(dataArray.doctor_name, dataArray.appointment_date, dataArray.location, dataArray.appointment_information)
+      debugger
+    }
+  })
   let ul = document.createElement('ul')
   appointments.forEach(apt => {
     let li = document.createElement('li')
