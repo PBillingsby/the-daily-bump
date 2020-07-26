@@ -6,7 +6,11 @@ class AppointmentsController < ApplicationController
 
   def index
     appointments = Appointment.all
-    render json: AppointmentSerializer.new(appointments).serialized_json
+    if appointments.count > 0
+      render json: AppointmentSerializer.new(appointments).serialized_json
+    else
+      render json: {error: 'No Appointments Yet'}
+    end
   end
 
   def destroy
