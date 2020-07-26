@@ -28,7 +28,15 @@ header {
   background-color: #eeebd9 !important;
 }
 
-.appointment-card {
-  width: 25vw;
-  display: inline;
+#appointments {
+  font-size: 50%;
+}
+#new-appointment-form input, label {
+  display:block;
+}
+
+@media(max-width: 992px) {
+  #main-baby-information {
+    padding: 0 !important;
+  }
 }

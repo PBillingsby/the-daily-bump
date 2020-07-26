@@ -1,7 +1,8 @@
 const APPOINTMENT_BASE_URL = 'http://localhost:3000/appointments'
 
 class Appointment {
-  constructor(doctorName, appointmentDate, appointmentLocation, appointmentNotes) {
+  constructor(id, doctorName, appointmentDate, appointmentLocation, appointmentNotes) {
+    this.id = id,
     this.doctorName = doctorName,
     this.appointmentDate = appointmentDate,
     this.appointmentLocation = appointmentLocation,
@@ -14,28 +15,18 @@ function clearAppointmentDiv() {
 }
 // WHEN ADD APPOINTMENT CLICKED, APPOINTMENT FORM APPENDED TO #appointment-form DIV
 function appointmentFormLoad() {
-  event.preventDefault()
+  clearAppointmentDiv()
   document.getElementById('new-appointment-form').innerHTML = `
-  <form id="appointmentForm" class="p-2 text-right" onsubmit="handleAppointment()">
-    <div class="form-group">
+  <form id="appointmentForm" class="p-2 text-left" onsubmit="handleAppointment()">
       <label>Doctor Name</label>
       <input type="text" name="doctor-name" id="doctor-name" placeholder="Doctor Name">
-    </div>
-    <div class="form-group">
       <label>Appointment Date</label>
       <input type="datetime-local" name="appointment-date" id="appointment-date" placeholder="Date">
-    </div>
-    <div class="form-group">
       <label>Location</label>
       <input type="text" name="loction" id="location" placeholder="Location">
-    </div>
-    <div class="form-group text-right">
       <label>Additional Notes</label>
       <input type="text" id="notes" placeholder="Notes">
-    </div>
-    <div class="form-group text-right">  
       <input type="submit">
-    </div>
   </form>`
 }
 
@@ -59,6 +50,8 @@ function handleAppointment() {
 }
 
 function appointmentsLoad() {
+  clearAppointmentDiv()
+
   event.preventDefault()
   fetch(APPOINTMENT_BASE_URL)
   .then(resp => resp.json())
@@ -68,8 +61,8 @@ function appointmentsLoad() {
       let formattedDateTime = dataArray.appointment_date.split('T')
       let time
       formattedDateTime[1].slice(0,2) > 12 ? time = "PM" : time = "AM"
-      let newDateTime = formattedDateTime[0] + ' @ ' + formattedDateTime[1].slice(0,5) + time
-      let newAppointment = new Appointment(dataArray.doctor_name, newDateTime, dataArray.location, dataArray.appointment_information)
+      let newDateTime = new Date(formattedDateTime[0]).toLocaleDateString() + ' @ ' + formattedDateTime[1].slice(0,5) + time
+      let newAppointment = new Appointment(dataArray.id, dataArray.doctor_name, newDateTime, dataArray.location, dataArray.appointment_information)
       appointmentHandle(newAppointment)
     }
   })
@@ -77,14 +70,29 @@ function appointmentsLoad() {
 
 function appointmentHandle(appointmentObject) {
   let ul = document.createElement('ul')
-  ul.classList.add('appointment-card')
+  ul.classList.add('list-group', 'list-group-horizontal')
   for (let attribute in appointmentObject) {
     let li = document.createElement('li')
-    li.classList.add('appointment-attribute')
+    li.classList.add('appointment-attribute', 'list-group-item')
     let attributeStringSplit = attribute.match(/[A-Z]+[^A-Z]*|[^A-Z]+/g)
-    li.innerHTML = `<p>${attributeStringSplit.join(" ").toUpperCase()}: ${appointmentObject[attribute]}</p>`
+    if (attribute !== 'id') {
+      li.innerHTML = `<p><strong>${attributeStringSplit.join(" ").toUpperCase()}:</strong> ${appointmentObject[attribute]}</p>`
+    }
+    else {
+      li.innerHTML = `<a href="#" onclick="editAppointment(${appointmentObject[attribute]})" class="pt-5">Edit</a><br>`
+    }
     ul.appendChild(li)
   }
-  ul.innerHTML += `<br>`
   document.getElementById('appointments').append(ul)
+}
+
+
+function editAppointment(appointmentId) {
+  fetch(APPOINTMENT_BASE_URL + appointmentId, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type':'application/json',
+      'Accept':'application/json'
+    }
+  })
 }

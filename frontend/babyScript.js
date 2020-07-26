@@ -60,12 +60,12 @@ function handleBaby(babyObject) {
     const formattedDate = babyObject.due_date.split('-')
     document.getElementById('baby-card').innerHTML = `
   <div class="card bg-baby-green text-center">
-    <div class="row no-gutters">
+    <div class="row">
       <div class="col">
         <img src="${babySizes[months_until_due][0]}" name="${babySizes[months_until_due][1]}" class="card-img">
         <sub><strong>Baby Size:</strong> ${babySizes[months_until_due][1]}</sub>
       </div>
-      <div class="col-lg-8 pt-4">
+      <div class="col-lg-8 pt-4" id="main-baby-information">
         <div class="card-body d-inline-flex text-center mx-auto">
           <span class="p-3 m-2 border mx-auto"><h6>Due Date</h6> <p>${formattedDate[1]}/${formattedDate[2]}/${formattedDate[0]}</p></span>
           <span class="p-3 m-2 border mx-auto"><h6>Mother</h6> <p>${babyObject.mother}</p></span>
