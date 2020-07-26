@@ -1,4 +1,4 @@
-const BASEURL = 'http://localhost:3000/'
+const BASEURL = 'http://localhost:3000/babies'
 let localBabyObject = localStorage.getItem("babyObject")
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,10 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (localBabyObject) {
     // If the baby object is in localStorage, show appointment form
     document.getElementById('appointment-form').style.display = "block"
+    document.getElementById('introduction').style.display = "none"
     handleTimes(JSON.parse(localBabyObject))
   }
   else {
     // Otherwise remove appointment form
+    document.getElementById('introduction').style.display = "block"
     document.getElementById('name-form').style.display = "none"
     document.getElementById('appointment-form').style.display = "none"
   }
@@ -23,7 +25,7 @@ function newBaby() {
     mother: document.getElementById('mother_name').value,
     father: document.getElementById('father_name').value
   }
-  fetch(BASEURL + 'babies', {
+  fetch(BASEURL, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',

@@ -1,4 +1,4 @@
-const APPOINTMENT_BASE_URL = 'http://localhost:3000/appointments'
+const APPOINTMENT_BASE_URL = 'http://localhost:3000/appointments/'
 
 class Appointment {
   constructor(id, doctorName, appointmentDate, appointmentLocation, appointmentNotes) {
@@ -47,23 +47,28 @@ function handleAppointment() {
     },
     body: JSON.stringify(appointment)
   })
+  .then(resp => 
+    appointmentsLoad())
 }
 
 function appointmentsLoad() {
   clearAppointmentDiv()
-
-  event.preventDefault()
   fetch(APPOINTMENT_BASE_URL)
   .then(resp => resp.json())
   .then(apts => {
-    for (appointment in apts.data) {
-      let dataArray = apts.data[appointment].attributes
-      let formattedDateTime = dataArray.appointment_date.split('T')
-      let time
-      formattedDateTime[1].slice(0,2) > 12 ? time = "PM" : time = "AM"
-      let newDateTime = new Date(formattedDateTime[0]).toLocaleDateString() + ' @ ' + formattedDateTime[1].slice(0,5) + time
-      let newAppointment = new Appointment(dataArray.id, dataArray.doctor_name, newDateTime, dataArray.location, dataArray.appointment_information)
-      appointmentHandle(newAppointment)
+    if (apts.error) {
+      document.getElementById('appointments').innerHTML = `<h5>${apts.error}</h5>`
+    }
+    else {
+      for (appointment in apts.data) {
+        let dataArray = apts.data[appointment].attributes
+        let formattedDateTime = dataArray.appointment_date.split('T')
+        let time
+        formattedDateTime[1].slice(0,2) > 12 ? time = "PM" : time = "AM"
+        let newDateTime = new Date(formattedDateTime[0]).toLocaleDateString() + ' @ ' + formattedDateTime[1].slice(0,5) + time
+        let newAppointment = new Appointment(dataArray.id, dataArray.doctor_name, newDateTime, dataArray.location, dataArray.appointment_information)
+        appointmentHandle(newAppointment)
+      }
     }
   })
 }
@@ -79,7 +84,7 @@ function appointmentHandle(appointmentObject) {
       li.innerHTML = `<p><strong>${attributeStringSplit.join(" ").toUpperCase()}:</strong> ${appointmentObject[attribute]}</p>`
     }
     else {
-      li.innerHTML = `<a href="#" onclick="editAppointment(${appointmentObject[attribute]})" class="pt-5">Edit</a><br>`
+      li.innerHTML = `<a href="#" onclick="deleteAppointment(${appointmentObject[attribute]})" class="text-center">Delete</a><br>`
     }
     ul.appendChild(li)
   }
@@ -87,12 +92,10 @@ function appointmentHandle(appointmentObject) {
 }
 
 
-function editAppointment(appointmentId) {
+function deleteAppointment(appointmentId) {
+  // event.preventDefault()
   fetch(APPOINTMENT_BASE_URL + appointmentId, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type':'application/json',
-      'Accept':'application/json'
-    }
-  })
+    method: 'DELETE'})
+    .then(resp => appointmentsLoad()
+  )
 }

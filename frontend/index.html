@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css">
-  <script src="babyScript.js"></script>
-  <script src="appointmentScript.js"></script>
+  <script src="scripts/babyScript.js"></script>
+  <script src="scripts/appointmentScript.js"></script>
+  <script src="scripts/nameScript.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
   <title>The Daily Bump</title>
@@ -14,44 +15,63 @@
 <body>
   <header class="border-bottom">
     <img src="images/921960a8-72d3-48a1-a6ad-5a05feb094de_200x200.png" alt="" class="logo-img">
-    <strong><sup>The Daily Bump</sup></strong>
+    <h4>The Daily Bump</h4>
   </header>
   <div class="container mt-3">
     <div id="baby-information">
       <!-- IF THERE IS A BABY, INFO WILL APPEAR HERE AND BELOW FORM WILL DISAPPEAR -->
       <div id="baby-card">
       </div>
-      <div id="baby-form" class="text-center">
-        <form class="p-3" onsubmit="newBaby()">
-        <h5>Add Baby Information</h5>
-        <div class="form-group">
-          <input type="text" name="mother_name" id="mother_name" placeholder="Mother Name">
+
+      <!-- WHEN THERE IS A BABY, BELOW DIV DISAPPEARS -->
+      <div class="d-inline-flex">
+        <div id="introduction">
+            <h1 class="text-center">The Daily Bump</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis doloremque laborum, explicabo beatae libero eius distinctio praesentium quam possimus! Deleniti nesciunt eum, enim distinctio doloribus doloremque repellendus nemo expedita? Voluptatum?</p>
+            <h4>Keep track of appointments</h4>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam at voluptate, fuga iste molestias voluptatibus porro. Quis, iure. Explicabo fugiat, minima quisquam ullam quod aut voluptatem vel laboriosam porro facere?</p>
         </div>
-        <div class="form-group">
-          <input type="text" name="father_name" id="father_name" placeholder="Father Name">
+        <div id="baby-form" class="text-center ml-5">
+          <form class="p-3" onsubmit="newBaby()">
+            <h5>Add Baby Information</h5>
+            <div class="form-group">
+              <input type="text" name="mother_name" id="mother_name" placeholder="Mother Name">
+            </div>
+            <div class="form-group">
+              <input type="text" name="father_name" id="father_name" placeholder="Father Name">
+            </div>
+            <label>Due Date</label>
+      
+            <div class="form-group">
+              <input type="date" name="due_date" id="due_date">
+            </div>
+            <input type="submit" value="Add Baby">
+          </form>
         </div>
-        <label>Due Date</label>
-  
-        <div class="form-group">
-          <input type="date" name="due_date" id="due_date">
-        </div>
-        <input type="submit" value="Add Baby">
-      </form>
       </div>
     </div>
       <!-- IF THERE IS NO BABY, A FORM WILL GO HERE -->
     <div id="content-box">
       <div id="name-form">
-        <button id="add-name" class="m-2 float-left" onclick="nameFormLoad()">Add Name</button>
+        <form onsubmit="babyNameSearch()">
+          <div class="form-group">
+            <input type="text" id="add-name" placeholder="Search Baby Name">
+            <input type="submit" placeholder="Add Name">
+          </div>
+        </form>
+        <button id="view-names" class="m-2 btn-sm" onclick="namesLoad()">View Names</button>
+
+        
         <!-- NAME FORM -->
       </div>
       <div id="appointment-form">
          <!-- APPOINTMENT FORM AND APPOINTMENTS VIEW -->
-         <div>
-            <button id="view-appointment" class="m-2 float-right" onclick="appointmentsLoad()">View Appointments</button>
-            <button id="add-appointment" class="m-2 float-right" onclick="appointmentFormLoad()">Add Appointment</button>
-            <div id="new-appointment-form" class="float-right"></div>
-            <div id="appointments" class="float-right"></div>
+         <div class="appointment-grid">
+            <button id="add-appointment" class="m-2 btn-sm" onclick="appointmentFormLoad()">Add Appointment</button>
+            <button id="view-appointment" class="m-2 btn-sm" onclick="appointmentsLoad()">View Appointments</button>
+
+            <div id="new-appointment-form" class="mx-auto"></div>
+            <div id="appointments" class="mx-auto"></div>
           </div>
 
         </div>

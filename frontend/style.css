@@ -1,42 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&family=Poppins&display=swap');
+/* MAIN */
 body {
   margin: 0;
   background-color: #F1DACF !important;
 }
 header {
-  width: 100%;
+  justify-content: space-between !important;
   background-color: #eeebd9;
 }
-
-#content-box {
-  display: grid;
-  grid-template-columns: 1fr 1fr
+header h4 {
+  display: inline;
+  font-family: Poppins;
 }
-
+#introduction {
+  max-width: 40vw;
+}
 .container {
   display: grid;
 }
-
-.card-img {
-  width: 13vw !important;
-}
-
 .logo-img {
   width: 5vw;
 }
 
+/* BABY */
+.card-img {
+  width: 13vw !important;
+}
 .bg-baby-green {
   background-color: #eeebd9 !important;
 }
-
+/* APPOINTMENTS */
+#content-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr
+}
 #appointments {
   font-size: 50%;
 }
 #new-appointment-form input, label {
   display:block;
 }
+.appointment-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.appointment-button {
+  max-width: 40vw;
+  max-height: 10vh;
+}
+/* MEDIA QUERIES */
 
 @media(max-width: 992px) {
   #main-baby-information {
     padding: 0 !important;
+  }
+  #appointments {
+    text-align: center;
   }
 }
