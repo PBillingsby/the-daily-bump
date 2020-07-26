@@ -1,17 +1,21 @@
 const APPOINTMENT_BASE_URL = 'http://localhost:3000/appointments'
 
 class Appointment {
-  constructor(id, baby_id, doctorName, appointmentDate, appointmentLocation, appointmentNotes) {
+  constructor(doctorName, appointmentDate, appointmentLocation, appointmentNotes) {
     this.doctorName = doctorName,
     this.appointmentDate = appointmentDate,
     this.appointmentLocation = appointmentLocation,
     this.appointmentNotes = appointmentNotes
   }
 }
-
+function clearAppointmentDiv() {
+  document.getElementById('appointments').innerHTML = ""
+  document.getElementById('new-appointment-form').innerHTML = ""
+}
 // WHEN ADD APPOINTMENT CLICKED, APPOINTMENT FORM APPENDED TO #appointment-form DIV
 function appointmentFormLoad() {
-  document.getElementById('appointment-form').innerHTML = `
+  event.preventDefault()
+  document.getElementById('new-appointment-form').innerHTML = `
   <form id="appointmentForm" class="p-2 text-right" onsubmit="handleAppointment()">
     <div class="form-group">
       <label>Doctor Name</label>
@@ -19,7 +23,7 @@ function appointmentFormLoad() {
     </div>
     <div class="form-group">
       <label>Appointment Date</label>
-      <input type="date" name="appointment-date" id="appointment-date" placeholder="Date">
+      <input type="datetime-local" name="appointment-date" id="appointment-date" placeholder="Date">
     </div>
     <div class="form-group">
       <label>Location</label>
@@ -55,23 +59,32 @@ function handleAppointment() {
 }
 
 function appointmentsLoad() {
-  let appointments = []
-
+  event.preventDefault()
   fetch(APPOINTMENT_BASE_URL)
   .then(resp => resp.json())
   .then(apts => {
     for (appointment in apts.data) {
       let dataArray = apts.data[appointment].attributes
-      // doctorName, appointmentDate, appointmentLocation, appointmentNotes
-      let newAppointment = new Appointment(dataArray.doctor_name, dataArray.appointment_date, dataArray.location, dataArray.appointment_information)
-      debugger
+      let formattedDateTime = dataArray.appointment_date.split('T')
+      let time
+      formattedDateTime[1].slice(0,2) > 12 ? time = "PM" : time = "AM"
+      let newDateTime = formattedDateTime[0] + ' @ ' + formattedDateTime[1].slice(0,5) + time
+      let newAppointment = new Appointment(dataArray.doctor_name, newDateTime, dataArray.location, dataArray.appointment_information)
+      appointmentHandle(newAppointment)
     }
   })
+}
+
+function appointmentHandle(appointmentObject) {
   let ul = document.createElement('ul')
-  appointments.forEach(apt => {
+  ul.classList.add('appointment-card')
+  for (let attribute in appointmentObject) {
     let li = document.createElement('li')
-    li.innerHTML = `<p>Date: ${apt.appointment_date} Doctor: ${apt.doctor_name} Location: ${apt.location}</p>`
+    li.classList.add('appointment-attribute')
+    let attributeStringSplit = attribute.match(/[A-Z]+[^A-Z]*|[^A-Z]+/g)
+    li.innerHTML = `<p>${attributeStringSplit.join(" ").toUpperCase()}: ${appointmentObject[attribute]}</p>`
     ul.appendChild(li)
-  })
+  }
+  ul.innerHTML += `<br>`
   document.getElementById('appointments').append(ul)
 }

@@ -1,6 +1,10 @@
+body {
+  margin: 0;
+  background-color: #F1DACF !important;
+}
 header {
   width: 100%;
-  background-color: #D9E3DA;
+  background-color: #eeebd9;
 }
 
 #content-box {
@@ -14,4 +18,17 @@ header {
 
 .card-img {
   width: 13vw !important;
+}
+
+.logo-img {
+  width: 5vw;
+}
+
+.bg-baby-green {
+  background-color: #eeebd9 !important;
+}
+
+.appointment-card {
+  width: 25vw;
+  display: inline;
 }

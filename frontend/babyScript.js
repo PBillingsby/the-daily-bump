@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   else {
     // Otherwise remove appointment form
+    document.getElementById('name-form').style.display = "none"
     document.getElementById('appointment-form').style.display = "none"
   }
 })
@@ -56,16 +57,17 @@ function handleBaby(babyObject) {
   let months_until_due = Math.floor(JSON.parse(localBabyObject).days_until_due / 7)
   // CREATE HTML FOR BABY INFORMATION DIV
     document.getElementById('baby-form').style.display = "none"
+    const formattedDate = babyObject.due_date.split('-')
     document.getElementById('baby-card').innerHTML = `
-  <div class="card bg-light text-center">
+  <div class="card bg-baby-green text-center">
     <div class="row no-gutters">
       <div class="col">
         <img src="${babySizes[months_until_due][0]}" name="${babySizes[months_until_due][1]}" class="card-img">
         <sub><strong>Baby Size:</strong> ${babySizes[months_until_due][1]}</sub>
       </div>
-      <div class="col-lg-8 pt-4 pl-4">
+      <div class="col-lg-8 pt-4">
         <div class="card-body d-inline-flex text-center mx-auto">
-          <span class="p-3 m-2 border mx-auto"><h6>Due Date</h6> <p>${babyObject.due_date}</p></span>
+          <span class="p-3 m-2 border mx-auto"><h6>Due Date</h6> <p>${formattedDate[1]}/${formattedDate[2]}/${formattedDate[0]}</p></span>
           <span class="p-3 m-2 border mx-auto"><h6>Mother</h6> <p>${babyObject.mother}</p></span>
           <span class="p-3 m-2 border mx-auto"><h6>Father</h6> <p>${babyObject.father}</p></span>
           <span class="p-3 m-2 border mx-auto"><h6>Weeks Until Due</h6> <p class="text-center">${Math.floor(babyObject.days_until_due / 7)}</p></span>

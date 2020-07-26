@@ -12,13 +12,16 @@
   <title>The Daily Bump</title>
 </head>
 <body>
-  <header><h4>The Daily Bump</h4></header>
-  <div class="container">
+  <header class="border-bottom">
+    <img src="images/921960a8-72d3-48a1-a6ad-5a05feb094de_200x200.png" alt="" class="logo-img">
+    <strong><sup>The Daily Bump</sup></strong>
+  </header>
+  <div class="container mt-3">
     <div id="baby-information">
       <!-- IF THERE IS A BABY, INFO WILL APPEAR HERE AND BELOW FORM WILL DISAPPEAR -->
       <div id="baby-card">
       </div>
-      <div id="baby-form">
+      <div id="baby-form" class="text-center">
         <form class="p-3" onsubmit="newBaby()">
         <h5>Step 1:</h5>
         <div class="form-group">
@@ -39,16 +42,20 @@
       <!-- IF THERE IS NO BABY, A FORM WILL GO HERE -->
     <div id="content-box">
       <div id="name-form">
-        hey
+        <button id="add-name" class="m-2 float-left" onclick="nameFormLoad()">Add Name</button>
+        <!-- NAME FORM -->
       </div>
       <div id="appointment-form">
-      <button id="add-appointment" class="m-2 float-right" onclick="appointmentFormLoad()">Add Appointment</button>
-      <!-- APPOINTMENT FORM -->
-      <div>
-        <button id="add-appointment" class="m-2 float-right" onclick="appointmentsLoad()">View Appointments</button>
-        <div id="appointments"></div>
+        <button id="add-appointment" class="m-2 float-right" onmouseover="appointmentFormLoad()" onmouseout="clearAppointmentDiv()">Add Appointment</button>
+        <div id="new-appointment-form" class="float-right">
+
+        </div>
+        <!-- APPOINTMENT FORM -->
+        <div>
+          <button id="add-appointment" class="m-2 float-right" onmouseover="appointmentsLoad()" onmouseout="clearAppointmentDiv()">View Appointments</button>
+          <div id="appointments" class="float-right"></div>
+        </div>
       </div>
-    </div>
     </div>
       
   </div>
