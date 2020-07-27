@@ -81,7 +81,7 @@ function appointmentHandle(appointmentObject) {
     li.classList.add('appointment-attribute', 'list-group-item')
     let attributeStringSplit = attribute.match(/[A-Z]+[^A-Z]*|[^A-Z]+/g)
     if (attribute !== 'id') {
-      li.innerHTML = `<p><strong>${attributeStringSplit.join(" ").toUpperCase()}:</strong> ${appointmentObject[attribute]}</p>`
+      li.innerHTML = `<strong>${attributeStringSplit.join(" ").toUpperCase()}:</strong> ${appointmentObject[attribute]}`
     }
     else {
       li.innerHTML = `<a href="#" onclick="deleteAppointment(${appointmentObject[attribute]})" class="text-center">Delete</a><br>`

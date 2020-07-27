@@ -30,6 +30,7 @@ header h4 {
   background-color: #eeebd9 !important;
 }
 /* APPOINTMENTS */
+
 #content-box {
   display: grid;
   grid-template-columns: 1fr 1fr

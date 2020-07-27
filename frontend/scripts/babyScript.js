@@ -1,22 +1,29 @@
-const BASEURL = 'http://localhost:3000/babies'
-let localBabyObject = localStorage.getItem("babyObject")
+const BASEURL = 'http://localhost:3000/babies/'
 
 document.addEventListener('DOMContentLoaded', () => {
   event.preventDefault()
-  
-  if (localBabyObject) {
-    // If the baby object is in localStorage, show appointment form
-    document.getElementById('appointment-form').style.display = "block"
-    document.getElementById('introduction').style.display = "none"
-    handleTimes(JSON.parse(localBabyObject))
-  }
-  else {
-    // Otherwise remove appointment form
-    document.getElementById('introduction').style.display = "block"
-    document.getElementById('name-form').style.display = "none"
-    document.getElementById('appointment-form').style.display = "none"
-  }
+  fetchBabyInformation()
 })
+
+function fetchBabyInformation() {
+  fetch(BASEURL + '1')
+  .then(resp => resp.json())
+  .then(babyObject => {
+    if (babyObject.error) {
+      // remove appointment form
+      document.getElementById('introduction').style.display = "block"
+      document.getElementById('name-form').style.display = "none"
+      document.getElementById('appointment-form').style.display = "none"
+    }
+    else {
+      // If the baby object is found, show appointment form
+      document.getElementById('appointment-form').style.display = "block"
+      document.getElementById('introduction').style.display = "none"
+      document.getElementById('name-form').style.display = "block"
+      handleBaby(babyObject)
+    }
+  })
+}
 
 function newBaby() {
   event.preventDefault()
@@ -35,28 +42,14 @@ function newBaby() {
   })
   .then(resp => resp.json())
   .then(obj => {
-    // Sets localStorage item babyObject with class constructed baby
     document.getElementById('appointment-form').style.display = "block"
-
-    handleTimes(obj)
+    fetchBabyInformation()
   })
 }
 
-function handleTimes(babyObject) {
-  let parsedDueDate = Date.parse(babyObject.due_date)
-  let parsedCurrentDate = Date.parse(new Date())
-  // Calculates dates
-  let calculatedDates = Math.floor((parsedDueDate - parsedCurrentDate) / (1000 * 60 * 60 * 24))
-  babyObject["days_until_due"] = calculatedDates
-  window.localStorage.setItem('babyObject', JSON.stringify(babyObject))
-  if (!localBabyObject) {
-    location.reload()
-  }
-  handleBaby(babyObject)
-}
 
 function handleBaby(babyObject) {
-  let months_until_due = Math.floor(JSON.parse(localBabyObject).days_until_due / 7)
+  let months_until_due = Math.floor(babyObject.days_until_due / 7)
   // CREATE HTML FOR BABY INFORMATION DIV
     document.getElementById('baby-form').style.display = "none"
     const formattedDate = babyObject.due_date.split('-')
@@ -78,11 +71,8 @@ function handleBaby(babyObject) {
       </div>
     </div>
   </div>`
-  // HANDLES localBabyObject AFTER CREATION
-  if (!localBabyObject) {
-    location.reload()
-  }
 }
 let babySizes = {
-  22: ['https://freesvg.org/img/Onion-Zwiebel-lineart1.png', "Onion"]
+  22: ['https://freesvg.org/img/Onion-Zwiebel-lineart1.png', "Onion"],
+  74: ['https://freesvg.org/img/Onion-Zwiebel-lineart1.png', "Onion"]
 }
