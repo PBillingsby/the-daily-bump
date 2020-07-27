@@ -3,7 +3,7 @@ class CreateNames < ActiveRecord::Migration[6.0]
     create_table :names do |t|
       t.belongs_to :baby
       t.string :name
-      t.string :meaning
+      t.text :meaning
     end
   end
 end

@@ -73,8 +73,12 @@ GEM
     ffi (1.13.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (1.8.4)
       concurrent-ruby (~> 1.0)
+    json (1.8.6)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -91,6 +95,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.14.1)
     msgpack (1.3.3)
+    multi_xml (0.6.0)
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
@@ -177,6 +182,7 @@ DEPENDENCIES
   byebug
   dotenv-rails
   fast_jsonapi
+  httparty (~> 0.13.7)
   listen (~> 3.2)
   nokogiri
   pg (>= 0.18, < 2.0)

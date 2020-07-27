@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2020_07_27_171856) do
   create_table "names", force: :cascade do |t|
     t.bigint "baby_id"
     t.string "name"
-    t.string "meaning"
+    t.text "meaning"
     t.index ["baby_id"], name: "index_names_on_baby_id"
   end
 
