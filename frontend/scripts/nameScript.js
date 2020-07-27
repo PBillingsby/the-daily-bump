@@ -11,40 +11,37 @@ function babyNameSearch() {
     body: JSON.stringify({name: document.getElementById('add-name').value})
   })
 }
-
 function namesLoad() {
+  event.preventDefault()
+  let nameDiv = document.getElementById('view-names')
   fetch(NAMEURL)
   .then(resp=>resp.json())
   .then(names => {
-    const nameDiv = document.getElementById('names')
-    for (name in names) {
-      handlenames(names[name], nameDiv)
+    if (names.error) {
+      nameDiv.style.display = "none"
     }
+    else {
+      for (name in names) {
+        let opt = document.createElement('option')
+        opt.appendChild(document.createTextNode(`${names[name].name}`) )
+        opt.value = `name[${names[name].id}]`
+        nameDiv.appendChild(opt)
+      }
+    }  
   })
 }
 
-function handlenames(nameObject, nameDiv) {
-  let newName = document.createElement('div')
-  newName.innerHTML = `
-  <div id="name[${nameObject.id}]">
-  <button onclick="toggleMeaning(${nameObject})" class="border">${nameObject.name}</button>
-  </div>
-  
-  `
-  nameDiv.append(newName)
-}
-
-function toggleMeaning(nameObject) {
-  debugger
-  document.getElementById(`name[${nameObject.id}]`).innerHTML = `
-  <div class="row">
-    <div class="col">
-      <div class="collapse multi-collapse" id="name-div[${nameObject.id}]">
-        <div class="card card-body">
-          <p>${nameObject.meaning}</p>
-        </div>
+function toggleMeaning() {
+  let optionId = event.target.children[event.target.selectedIndex].value[5]
+  fetch(NAMEURL + optionId)
+  .then(resp => resp.json())
+  .then(name => {
+    document.getElementById('name-meaning').innerHTML +=
+    `<div class="row">
+      <div class="card card-body">
+        <p>${name.meaning}</p>
       </div>
     </div>
-  </div>
-  `
+    `
+  })
 }

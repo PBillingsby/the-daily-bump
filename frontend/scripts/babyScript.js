@@ -13,6 +13,7 @@ function fetchBabyInformation() {
       // remove appointment form
       document.getElementById('introduction').style.display = "block"
       document.getElementById('name-form').style.display = "none"
+      document.getElementById('names').style.display = "none"
       document.getElementById('appointment-form').style.display = "none"
     }
     else {

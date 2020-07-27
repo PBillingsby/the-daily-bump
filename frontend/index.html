@@ -12,7 +12,7 @@
 
   <title>The Daily Bump</title>
 </head>
-<body>
+<body onload="namesLoad()">
   <header class="border-bottom">
     <img src="images/921960a8-72d3-48a1-a6ad-5a05feb094de_200x200.png" alt="" class="logo-img">
     <h4>The Daily Bump</h4>
@@ -59,10 +59,11 @@
             <input type="submit" placeholder="Add Name">
           </div>
         </form>
-        <button id="view-names" class="m-2 btn-sm" onclick="namesLoad()">View Names</button>
-        <div id="names"></div>
-        
-        <!-- NAME FORM -->
+        <div id="name-meaning">
+          <select id="view-names" onchange="toggleMeaning()">
+            <option selected value>View Names</option>
+          </select>
+        </div>
       </div>
       <div id="appointment-form">
          <!-- APPOINTMENT FORM AND APPOINTMENTS VIEW -->
