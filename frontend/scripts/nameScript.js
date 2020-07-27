@@ -10,6 +10,8 @@ function babyNameSearch() {
     },
     body: JSON.stringify({name: document.getElementById('add-name').value})
   })
+  .then(resp => resp.json())
+  .then(obj => window.location.reload() )
 }
 function namesLoad() {
   event.preventDefault()
@@ -37,8 +39,9 @@ function toggleMeaning() {
   .then(resp => resp.json())
   .then(name => {
     document.getElementById('name-meaning').innerHTML +=
-    `<div class="row">
+    `<div class="row name-info">
       <div class="card card-body">
+        <h4>Meaning of ${name.name}</h4>
         <p>${name.meaning}</p>
       </div>
     </div>

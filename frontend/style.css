@@ -49,6 +49,13 @@ header h4 {
   max-width: 40vw;
   max-height: 10vh;
 }
+/* NAMES */
+
+.name-info {
+  max-height: 30vh;
+  overflow: scroll;
+}
+
 /* MEDIA QUERIES */
 
 @media(max-width: 992px) {
