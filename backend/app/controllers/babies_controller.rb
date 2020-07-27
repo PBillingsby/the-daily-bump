@@ -1,6 +1,7 @@
 class BabiesController < ApplicationController
+  before_action :calculate_days_until_due, only: [:show]
+  
   def create
-    params[:due_date] = params[:due_date].split("-").reverse.join("/")
     baby = Baby.create(babies_params)
     render json: baby
   end
@@ -15,7 +16,15 @@ class BabiesController < ApplicationController
   end
 
   def babies_params
-    params.require(:baby).permit(:due_date, :mother, :father)
+    params.require(:baby).permit(:due_date, :mother, :father, :days_until_due)
+  end
+
+  private
+  def calculate_days_until_due
+    baby = Baby.find_by(id: params[:id])
+    if baby
+      baby.update(days_until_due: Date.parse(baby.due_date.to_s).mjd - Date.parse(Date.today.to_s).mjd)
+    end
   end
   
 end

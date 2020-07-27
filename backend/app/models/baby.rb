@@ -3,5 +3,4 @@ class Baby < ActiveRecord::Base
   validates :due_date, presence: true
   validates :mother, presence: true
   validates :father, presence: true
-
 end

@@ -4,6 +4,7 @@ class CreateBabies < ActiveRecord::Migration[6.0]
       t.date :due_date
       t.string :mother
       t.string :father
+      t.integer :days_until_due
     end
   end
 end
