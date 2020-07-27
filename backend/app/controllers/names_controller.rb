@@ -16,4 +16,9 @@ class NamesController < ApplicationController
     name = Name.find_by(id: params[:id])
     render json: name
   end
+
+  def destroy
+    name = Name.find_by(id: params[:id])
+    name.destroy
+  end
 end
