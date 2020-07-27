@@ -34,17 +34,31 @@ function namesLoad() {
 }
 
 function toggleMeaning() {
+  if (document.getElementById('name-info')) {
+    document.getElementById('name-info').remove()
+  }
   let optionId = event.target.children[event.target.selectedIndex].value[5]
   fetch(NAMEURL + optionId)
   .then(resp => resp.json())
   .then(name => {
     document.getElementById('name-meaning').innerHTML +=
-    `<div class="row name-info">
-      <div class="card card-body">
+    `<div id="name-info"class="row">
+      <div class="card card-body name-info"">
         <h4>Meaning of ${name.name}</h4>
         <p>${name.meaning}</p>
+        <a href="#" onclick="deleteName(${name.id})">Delete</a>
+
       </div>
+
     </div>
     `
   })
+}
+
+function deleteName(nameId) {
+  event.preventDefault()
+  fetch(NAMEURL + nameId, {
+    method: "DELETE"
+  })
+  window.location.reload()
 }
