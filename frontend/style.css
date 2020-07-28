@@ -35,15 +35,11 @@ header h4 {
   display: grid;
   grid-template-columns: 1fr 1fr
 }
-#appointments {
-  font-size: 50%;
+#appointments, #name-form {
+  font-size: 70%;
 }
 #new-appointment-form input, label {
   display:block;
-}
-.appointment-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
 }
 .appointment-button {
   max-width: 40vw;
@@ -56,6 +52,9 @@ header h4 {
   overflow: scroll;
 }
 
+.name-transition {
+  transition: all 5s;
+}
 /* MEDIA QUERIES */
 
 @media(max-width: 992px) {

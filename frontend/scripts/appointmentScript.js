@@ -16,8 +16,8 @@ function clearAppointmentDiv() {
 // WHEN ADD APPOINTMENT CLICKED, APPOINTMENT FORM APPENDED TO #appointment-form DIV
 function appointmentFormLoad() {
   clearAppointmentDiv()
-  document.getElementById('new-appointment-form').innerHTML = `
-  <form id="appointmentForm" class="p-2 text-left" onsubmit="handleAppointment()">
+  document.getElementById('appointments').innerHTML = `
+  <form id="appointmentForm" class="ml-4 text-left" onsubmit="handleAppointment()">
       <label>Doctor Name</label>
       <input type="text" name="doctor-name" id="doctor-name" placeholder="Doctor Name">
       <label>Appointment Date</label>

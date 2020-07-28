@@ -13,7 +13,8 @@ function fetchBabyInformation() {
       // remove appointment form
       document.getElementById('introduction').style.display = "block"
       document.getElementById('name-form').style.display = "none"
-      document.getElementById('names').style.display = "none"
+      // document.getElementById('names').style.display = "none"
+      document.getElementById('images').style.display = "none"
       document.getElementById('appointment-form').style.display = "none"
     }
     else {
@@ -73,6 +74,14 @@ function handleBaby(babyObject) {
     </div>
   </div>`
 }
+
+function handleImage() {
+  event.preventDefault()
+  const imageFile = document.getElementById('image').files[0]
+  let photo = {photo: imageFile}
+  debugger
+}
+
 let babySizes = {
   22: ['https://freesvg.org/img/Onion-Zwiebel-lineart1.png', "Onion"],
   74: ['https://freesvg.org/img/Onion-Zwiebel-lineart1.png', "Onion"]

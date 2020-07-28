@@ -54,6 +54,7 @@
     <div id="content-box">
       <div id="name-form" class="mx-auto">
         <form onsubmit="babyNameSearch()">
+          <h4 class="text-center">Add Baby Names</h4>
           <div class="form-group text-center">
             <input type="text" id="add-name" placeholder="Search Baby Name">
             <input type="submit" placeholder="Add Name">
@@ -61,24 +62,31 @@
         </form>
         <div id="name-meaning" class="text-center">
           <select id="view-names" onchange="toggleMeaning()">
-            <option selected value>View Names</option>
+            <option selected disabled value>View Saved Names</option>
           </select>
         </div>
       </div>
       <div id="appointment-form">
          <!-- APPOINTMENT FORM AND APPOINTMENTS VIEW -->
-         <div class="appointment-grid">
+         <div class=" appointment-grid text-center">
             <button id="add-appointment" class="m-2 btn-sm" onclick="appointmentFormLoad()">Add Appointment</button>
             <button id="view-appointment" class="m-2 btn-sm" onclick="appointmentsLoad()">View Appointments</button>
 
             <div id="new-appointment-form" class="mx-auto"></div>
             <div id="appointments" class="mx-auto"></div>
           </div>
-
         </div>
       </div>
     </div>
-      
+    <div id="images" class="text-center">
+      <h4>Add Image To Album</h4>
+      <form id="baby-images" onsubmit="handleImage()">
+        <div class="form-group">
+          <input type="file" id="image" accept=".jpg, .jpeg, .png" multiple>
+          <input type="submit" value="Add Image">
+        </div>
+      </form>
+    </div>
   </div>
 </body>
 </html>
