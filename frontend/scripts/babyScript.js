@@ -1,31 +1,67 @@
 const BASEURL = 'http://localhost:3000/babies/'
 
+class Baby {
+  constructor(babyId, dueDate, mother, father, daysUntilDue, weeksUntilDue) {
+    this.babyId = babyId,
+    this.dueDate = dueDate,
+    this.mother = mother,
+    this.father = father,
+    this.daysUntilDue = daysUntilDue,
+    this.weeksUntilDue = weeksUntilDue
+  }
+
+  fetchBabyInformation() {
+    fetch(BASEURL + '1')
+    .then(resp => resp.json())
+    .then(babyObject => {
+      if (babyObject.error) {
+        // remove appointment form
+        document.getElementById('introduction').style.display = "block"
+        document.getElementById('name-form').style.display = "none"
+        document.getElementById('names').style.display = "none"
+        document.getElementById('images').style.display = "none"
+        document.getElementById('appointment-form').style.display = "none"
+      }
+      else {
+        // If the baby object is found, show appointment form
+        document.getElementById('appointment-form').style.display = "block"
+        document.getElementById('introduction').style.display = "none"
+        document.getElementById('name-form').style.display = "block"
+        this.handleBaby()
+      }
+    })
+  }
+
+  handleBaby() {
+    let months_until_due = Math.floor(this.days_until_due / 7)
+    // CREATE HTML FOR BABY INFORMATION DIV
+      document.getElementById('baby-form').style.display = "none"
+      const formattedDate = this.dueDate.split('-')
+      document.getElementById('baby-card').innerHTML = `
+    <div class="card bg-baby-green text-center">
+      <div class="row">
+        <div class="col">
+          <img src="${babySizes[this.weeksUntilDue][0]}" name="${babySizes[this.weeksUntilDue][1]}" class="card-img">
+          <sub><strong>Baby Size:</strong> ${babySizes[this.weeksUntilDue][1]}</sub>
+        </div>
+        <div class="col-lg-8 pt-4" id="main-baby-information">
+          <div class="card-body d-inline-flex text-center mx-auto">
+            <span class="p-3 m-2 border mx-auto"><h6>Due Date</h6> <p>${formattedDate[1]}/${formattedDate[2]}/${formattedDate[0]}</p></span>
+            <span class="p-3 m-2 border mx-auto"><h6>Mother</h6> <p>${this.mother}</p></span>
+            <span class="p-3 m-2 border mx-auto"><h6>Father</h6> <p>${this.father}</p></span>
+            <span class="p-3 m-2 border mx-auto"><h6>Weeks Until Due</h6> <p class="text-center">${Math.floor(this.weeksUntilDue)}</p></span>
+            <span class="p-3 m-2 border mx-auto"><h6>Days Until Due</h6> <p class="text-center">${this.daysUntilDue}</p></span>
+          </div>
+        </div>
+      </div>
+    </div>`
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   event.preventDefault()
-  fetchBabyInformation()
+  // fetchBabyInformation()
 })
-
-function fetchBabyInformation() {
-  fetch(BASEURL + '1')
-  .then(resp => resp.json())
-  .then(babyObject => {
-    if (babyObject.error) {
-      // remove appointment form
-      document.getElementById('introduction').style.display = "block"
-      document.getElementById('name-form').style.display = "none"
-      document.getElementById('names').style.display = "none"
-      document.getElementById('images').style.display = "none"
-      document.getElementById('appointment-form').style.display = "none"
-    }
-    else {
-      // If the baby object is found, show appointment form
-      document.getElementById('appointment-form').style.display = "block"
-      document.getElementById('introduction').style.display = "none"
-      document.getElementById('name-form').style.display = "block"
-      handleBaby(babyObject)
-    }
-  })
-}
 
 function newBaby() {
   event.preventDefault()
@@ -45,51 +81,24 @@ function newBaby() {
   .then(resp => resp.json())
   .then(obj => {
     document.getElementById('appointment-form').style.display = "block"
-    fetchBabyInformation()
+    let baby = new Baby(obj.id, obj.due_date, obj.mother, obj.father, obj.days_until_due, Math.floor(obj.days_until_due / 7))
+    baby.fetchBabyInformation()
   })
 }
 
 
-function handleBaby(babyObject) {
-  let months_until_due = Math.floor(babyObject.days_until_due / 7)
-  // CREATE HTML FOR BABY INFORMATION DIV
-    document.getElementById('baby-form').style.display = "none"
-    const formattedDate = babyObject.due_date.split('-')
-    document.getElementById('baby-card').innerHTML = `
-  <div class="card bg-baby-green text-center">
-    <div class="row">
-      <div class="col">
-        <img src="${babySizes[months_until_due][0]}" name="${babySizes[months_until_due][1]}" class="card-img">
-        <sub><strong>Baby Size:</strong> ${babySizes[months_until_due][1]}</sub>
-      </div>
-      <div class="col-lg-8 pt-4" id="main-baby-information">
-        <div class="card-body d-inline-flex text-center mx-auto">
-          <span class="p-3 m-2 border mx-auto"><h6>Due Date</h6> <p>${formattedDate[1]}/${formattedDate[2]}/${formattedDate[0]}</p></span>
-          <span class="p-3 m-2 border mx-auto"><h6>Mother</h6> <p>${babyObject.mother}</p></span>
-          <span class="p-3 m-2 border mx-auto"><h6>Father</h6> <p>${babyObject.father}</p></span>
-          <span class="p-3 m-2 border mx-auto"><h6>Weeks Until Due</h6> <p class="text-center">${Math.floor(babyObject.days_until_due / 7)}</p></span>
-          <span class="p-3 m-2 border mx-auto"><h6>Days Until Due</h6> <p class="text-center">${babyObject.days_until_due}</p></span>
-        </div>
-      </div>
-    </div>
-  </div>`
-}
+
 
 function handleImage() {
   event.preventDefault()
-  const imageFile = document.getElementById('image').files[0]
-  let photo = imageFile
+  const formData = new FormData()
+  formData.append('image', document.getElementById('image').files[0])
   fetch(BASEURL + "1", {
-    method: 'PATCH',
-    headers: {
-      'Content-Type':'application/json',
-      'Accept':'application/json'
-    },
-    body: JSON.stringify(photo)
+    method: 'PUT',
+    body: formData
   })
   .then(resp => resp.json())
   .then(baby => {debugger})
-
 }
 
 let babySizes = {
