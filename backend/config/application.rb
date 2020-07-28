@@ -26,6 +26,7 @@ module Backend
     config.time_zone = 'Eastern Time (US & Canada)'
     config.active_record.default_timezone = 'Eastern Time (US & Canada)'
     Dotenv::Railtie.load
+    config.active_storage.replace_on_assign_to_many = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

@@ -20,5 +20,6 @@ class NamesController < ApplicationController
   def destroy
     name = Name.find_by(id: params[:id])
     name.destroy
+    head :no_content
   end
 end
