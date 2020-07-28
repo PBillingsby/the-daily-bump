@@ -1,6 +1,8 @@
 class Baby < ActiveRecord::Base
-  has_many :appointments
   validates :due_date, presence: true
   validates :mother, presence: true
   validates :father, presence: true
+  
+  has_many :appointments
+  has_many_attached :images
 end

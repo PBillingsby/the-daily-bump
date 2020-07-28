@@ -16,7 +16,7 @@ class BabiesController < ApplicationController
   end
 
   def babies_params
-    params.require(:baby).permit(:due_date, :mother, :father, :days_until_due)
+    params.require(:baby).permit(:due_date, :mother, :father, :days_until_due, images: [])
   end
 
   private
