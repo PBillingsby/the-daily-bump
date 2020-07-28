@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let baby = new Baby()
   baby.fetchBabyInformation()
 })
+
 class Baby {
   constructor(babyId, dueDate, mother, father, daysUntilDue, weeksUntilDue) {
     this.babyId = babyId,
@@ -30,9 +31,10 @@ class Baby {
       else {
         // If the baby object is found, show appointment form
         document.getElementById('appointment-form').style.display = "block"
-        document.getElementById('introduction').style.display = "none"
+        document.getElementById('introduction').remove()
         document.getElementById('name-form').style.display = "block"
         baby.handleBaby()
+        baby.fetchImages()
       }
     })
   }
@@ -59,6 +61,14 @@ class Baby {
         </div>
       </div>
     </div>`
+  }
+
+  fetchImages() {
+    fetch(BASEURL + 1)
+    .then(resp => resp.json())
+    .then(babyObj => {
+      debugger
+    })
   }
 }
 
@@ -98,7 +108,7 @@ function handleImage() {
     body: formData
   })
   .then(resp => resp.json())
-  .then(baby => {debugger})
+  .then(baby => baby)
 }
 
 let babySizes = {

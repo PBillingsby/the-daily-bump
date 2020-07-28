@@ -1,4 +1,11 @@
 const NAMEURL = 'http://localhost:3000/names/'
+class Name {
+  constructor(name) {
+    this.name = name
+  }
+}
+document.addEventListener('DOMContentLoaded', namesLoad())
+
 function babyNameSearch() {
   event.preventDefault()
   fetch(NAMEURL, {
@@ -15,7 +22,6 @@ function babyNameSearch() {
   })
 }
 function namesLoad() {
-  // event.preventDefault()
   let nameDiv = document.getElementById('view-names')
   fetch(NAMEURL)
   .then(resp=>resp.json())
@@ -27,6 +33,7 @@ function namesLoad() {
       for (name in names) {
         let opt = document.createElement('option')
         opt.appendChild(document.createTextNode(`${names[name].name}`) )
+        opt.id = `name[${names[name].id}]`
         opt.value = `name[${names[name].id}]`
         nameDiv.appendChild(opt)
       }
@@ -35,9 +42,10 @@ function namesLoad() {
 }
 
 function toggleMeaning(nameObject) {
-  if (document.getElementById('name-info')) {
-    document.getElementById('name-info').remove()
-  }  // IF nameObject passed through function, use id, else use select option value
+  // if (document.getElementById('name-info')) {
+  //   document.getElementById('name-info').remove()
+  // }  
+  // IF nameObject passed through function, use id, else use select option value
   let optionId 
   !!nameObject ? optionId = nameObject.id : optionId = event.target.children[event.target.selectedIndex].value.match(/\d+/)[0]
   fetch(NAMEURL + optionId)
@@ -60,5 +68,6 @@ function deleteName(nameId) {
   fetch(NAMEURL + nameId, {
     method: "DELETE"
   })
-  namesLoad()
+  document.getElementById(`name[${nameId}]`).remove()
+  document.getElementById('name-meaning').remove()
 }
