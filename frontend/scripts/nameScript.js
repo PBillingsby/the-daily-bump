@@ -15,7 +15,7 @@ function babyNameSearch() {
   })
 }
 function namesLoad() {
-  event.preventDefault()
+  // event.preventDefault()
   let nameDiv = document.getElementById('view-names')
   fetch(NAMEURL)
   .then(resp=>resp.json())
@@ -60,5 +60,5 @@ function deleteName(nameId) {
   fetch(NAMEURL + nameId, {
     method: "DELETE"
   })
-
+  namesLoad()
 }

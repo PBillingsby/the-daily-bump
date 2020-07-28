@@ -13,7 +13,7 @@ function fetchBabyInformation() {
       // remove appointment form
       document.getElementById('introduction').style.display = "block"
       document.getElementById('name-form').style.display = "none"
-      // document.getElementById('names').style.display = "none"
+      document.getElementById('names').style.display = "none"
       document.getElementById('images').style.display = "none"
       document.getElementById('appointment-form').style.display = "none"
     }
@@ -78,8 +78,18 @@ function handleBaby(babyObject) {
 function handleImage() {
   event.preventDefault()
   const imageFile = document.getElementById('image').files[0]
-  let photo = {photo: imageFile}
-  debugger
+  let photo = imageFile
+  fetch(BASEURL + "1", {
+    method: 'PATCH',
+    headers: {
+      'Content-Type':'application/json',
+      'Accept':'application/json'
+    },
+    body: JSON.stringify(photo)
+  })
+  .then(resp => resp.json())
+  .then(baby => {debugger})
+
 }
 
 let babySizes = {
