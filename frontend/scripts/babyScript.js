@@ -1,5 +1,9 @@
 const BASEURL = 'http://localhost:3000/babies/'
-
+document.addEventListener('DOMContentLoaded', () => {
+  event.preventDefault()
+  let baby = new Baby()
+  baby.fetchBabyInformation()
+})
 class Baby {
   constructor(babyId, dueDate, mother, father, daysUntilDue, weeksUntilDue) {
     this.babyId = babyId,
@@ -14,6 +18,7 @@ class Baby {
     fetch(BASEURL + '1')
     .then(resp => resp.json())
     .then(babyObject => {
+      let baby = new Baby(babyObject.id, babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_due, Math.floor(babyObject.days_until_due / 7))
       if (babyObject.error) {
         // remove appointment form
         document.getElementById('introduction').style.display = "block"
@@ -27,13 +32,12 @@ class Baby {
         document.getElementById('appointment-form').style.display = "block"
         document.getElementById('introduction').style.display = "none"
         document.getElementById('name-form').style.display = "block"
-        this.handleBaby()
+        baby.handleBaby()
       }
     })
   }
 
   handleBaby() {
-    let months_until_due = Math.floor(this.days_until_due / 7)
     // CREATE HTML FOR BABY INFORMATION DIV
       document.getElementById('baby-form').style.display = "none"
       const formattedDate = this.dueDate.split('-')
@@ -58,10 +62,6 @@ class Baby {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  event.preventDefault()
-  // fetchBabyInformation()
-})
 
 function newBaby() {
   event.preventDefault()
