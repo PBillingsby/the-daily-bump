@@ -1,9 +1,4 @@
 const BASEURL = 'http://localhost:3000/babies/'
-document.addEventListener('DOMContentLoaded', () => {
-  event.preventDefault()
-  let baby = new Baby()
-  baby.fetchBabyInformation()
-})
 
 class Baby {
   constructor(babyId, dueDate, mother, father, daysUntilDue, weeksUntilDue) {
@@ -16,7 +11,7 @@ class Baby {
   }
 
   fetchBabyInformation() {
-    fetch(BASEURL + '1')
+    fetch(BASEURL + this.babyId)
     .then(resp => resp.json())
     .then(babyObject => {
       let baby = new Baby(babyObject.id, babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_due, Math.floor(babyObject.days_until_due / 7))
@@ -24,14 +19,13 @@ class Baby {
         // remove appointment form
         document.getElementById('introduction').style.display = "block"
         document.getElementById('name-form').style.display = "none"
-        document.getElementById('names').style.display = "none"
+        document.getElementById('view-names').style.display = "none"
         document.getElementById('images').style.display = "none"
         document.getElementById('appointment-form').style.display = "none"
       }
       else {
         // If the baby object is found, show appointment form
         document.getElementById('appointment-form').style.display = "block"
-        document.getElementById('introduction').remove()
         document.getElementById('name-form').style.display = "block"
         baby.handleBaby()
         baby.fetchImages()
@@ -64,17 +58,23 @@ class Baby {
   }
 
   fetchImages() {
-    fetch(BASEURL + 1)
+    fetch(BASEURL)
     .then(resp => resp.json())
     .then(babyObj => {
-      debugger
     })
   }
 }
+const newBabyWithId = new Baby(1)
 
+document.addEventListener('DOMContentLoaded', ()=> {
+  document.getElementById('new-baby-form').remove() 
+  document.getElementById('introduction').remove() 
+  newBabyWithId.fetchBabyInformation()
+})
 
 function newBaby() {
   event.preventDefault()
+
   let baby = {
     due_date: document.getElementById('due_date').value,
     mother: document.getElementById('mother_name').value,
@@ -95,10 +95,6 @@ function newBaby() {
     baby.fetchBabyInformation()
   })
 }
-
-
-
-
 function handleImage() {
   event.preventDefault()
   const formData = new FormData()
@@ -112,6 +108,13 @@ function handleImage() {
 }
 
 let babySizes = {
+  0: ["https://img.icons8.com/carbon-copy/100/000000/pumpkin--v2.png", "Ready to go!"],
   22: ['https://freesvg.org/img/Onion-Zwiebel-lineart1.png', "Onion"],
-  74: ['https://freesvg.org/img/Onion-Zwiebel-lineart1.png', "Onion"]
+  74: ['https://freesvg.org/img/Onion-Zwiebel-lineart1.png', "Onion"],
+  42: ["https://www.svgrepo.com/show/91419/seeds.svg", "Poppy Seed"],
+  41: ["https://www.svgrepo.com/show/91419/seeds.svg", "Apple Seed"],
+  40: ["https://img.icons8.com/carbon-copy/100/000000/peas.png", "Sweet Pea"],
+  39: ["https://img.icons8.com/ios/50/000000/blueberry.png", "Blueberry"],
+  38: ["https://img.icons8.com/ios/50/000000/raspberry.png", "Raspberry"],
+  37: ["https://img.icons8.com/dotty/80/000000/olive.png", "Olive"]
 }

@@ -32,7 +32,7 @@
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam at voluptate, fuga iste molestias voluptatibus porro. Quis, iure. Explicabo fugiat, minima quisquam ullam quod aut voluptatem vel laboriosam porro facere?</p>
         </div>
         <div id="baby-form" class="text-center ml-5">
-          <form class="p-3" onsubmit="newBaby()">
+          <form id="new-baby-form" class="p-3" onsubmit="newBaby()">
             <h5>Add Baby Information</h5>
             <div class="form-group">
               <input type="text" name="mother_name" id="mother_name" placeholder="Mother Name">
@@ -64,6 +64,9 @@
           <select id="view-names" onchange="toggleMeaning()">
             <option selected disabled value>View Saved Names</option>
           </select>
+          <div id="selected-name">
+            
+          </div>
         </div>
       </div>
       <div id="appointment-form">
