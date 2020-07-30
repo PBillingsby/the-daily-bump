@@ -1,3 +1,4 @@
+
 const BASEURL = 'http://localhost:3000/babies/'
 
 class Baby {
@@ -11,6 +12,8 @@ class Baby {
   }
 
   fetchBabyInformation() {
+    document.getElementById('new-baby-form').remove() 
+    document.getElementById('introduction').remove() 
     fetch(BASEURL + this.babyId)
     .then(resp => resp.json())
     .then(babyObject => {
@@ -67,8 +70,6 @@ class Baby {
 const newBabyWithId = new Baby(1)
 
 document.addEventListener('DOMContentLoaded', ()=> {
-  document.getElementById('new-baby-form').remove() 
-  document.getElementById('introduction').remove() 
   newBabyWithId.fetchBabyInformation()
 })
 
@@ -104,7 +105,7 @@ function handleImage() {
     body: formData
   })
   .then(resp => resp.json())
-  .then(baby => baby)
+  .then(baby => console.log(baby))
 }
 
 let babySizes = {

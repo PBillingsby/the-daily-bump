@@ -24,37 +24,36 @@ function babyNameSearch() {
   })
 }
 function namesLoad() {
+  // FIX NAME SELECT OPTIONS ON ADD
+  // document.getElementById('view-names').innerHTML = ""
+
+  const nameDiv = document.getElementById('view-names')
+
   fetch(NAMEURL)
   .then(resp=>resp.json())
   .then(names => {
-    if (names.error) {
-      // nameDiv.style.display = "none"
-    }
-    else {
-      let nameDiv = document.getElementById('view-names')
-      for (name in names) {
-        let opt = document.createElement('option')
+    for (name in names) {
+      let opt = document.createElement('option')
+      if (name === "error") {
+        nameDiv.children[0].innerText = names[name]
+      }
+      else {
         opt.appendChild(document.createTextNode(`${names[name].name}`) )
         opt.id = `name[${names[name].id}]`
         opt.value = `name[${names[name].id}]`
         nameDiv.appendChild(opt)
-      }
-    }  
+    }
+    }
   })
-  // let selectedOptions = document.getElementById('view-names').querySelectorAll('option')
-  // debugger
 }
 
 function toggleMeaning(nameObject) {
-  if (document.getElementById('name-info')) {
-    document.getElementById('name-info').remove()
-  }  
-  // IF nameObject passed through function, use id, else use select option value
-  let optionId 
+  let optionId
   !!nameObject ? optionId = nameObject.id : optionId = event.target.children[event.target.selectedIndex].value.match(/\d+/)[0]
   fetch(NAMEURL + optionId)
   .then(resp => resp.json())
   .then(name => {
+    let nameDiv = document.getElementById('view-names')
     document.getElementById('selected-name').innerHTML =
     `<div id="name-info"class="row name-transition">
       <div class="card card-body name-info"">
@@ -64,11 +63,12 @@ function toggleMeaning(nameObject) {
       </div>
     </div>
     `
+    namesLoad()
   })
 }
 
 function deleteName(nameId) {
-  event.preventDefault()
+  // event.preventDefault()
   fetch(NAMEURL + nameId, {
     method: "DELETE"
   })
