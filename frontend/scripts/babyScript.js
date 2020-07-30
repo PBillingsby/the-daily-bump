@@ -12,15 +12,12 @@ class Baby {
   }
 
   fetchBabyInformation() {
-    document.getElementById('new-baby-form').remove() 
-    document.getElementById('introduction').remove() 
     fetch(BASEURL + this.babyId)
     .then(resp => resp.json())
     .then(babyObject => {
       let baby = new Baby(babyObject.id, babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_due, Math.floor(babyObject.days_until_due / 7))
       if (babyObject.error) {
         // remove appointment form
-        document.getElementById('introduction').style.display = "block"
         document.getElementById('name-form').style.display = "none"
         document.getElementById('view-names').style.display = "none"
         document.getElementById('images').style.display = "none"
@@ -28,6 +25,7 @@ class Baby {
       }
       else {
         // If the baby object is found, show appointment form
+        document.getElementById('images').style.display = "block"
         document.getElementById('appointment-form').style.display = "block"
         document.getElementById('name-form').style.display = "block"
         baby.handleBaby()
@@ -38,7 +36,6 @@ class Baby {
 
   handleBaby() {
     // CREATE HTML FOR BABY INFORMATION DIV
-      document.getElementById('baby-form').style.display = "none"
       const formattedDate = this.dueDate.split('-')
       document.getElementById('baby-card').innerHTML = `
     <div class="card bg-baby-green text-center">
@@ -58,6 +55,8 @@ class Baby {
         </div>
       </div>
     </div>`
+    document.getElementById('intro-div').remove()
+
   }
 
   fetchImages() {
@@ -70,6 +69,7 @@ class Baby {
 const newBabyWithId = new Baby(1)
 
 document.addEventListener('DOMContentLoaded', ()=> {
+  event.preventDefault()
   newBabyWithId.fetchBabyInformation()
 })
 

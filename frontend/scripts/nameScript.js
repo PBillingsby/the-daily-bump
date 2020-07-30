@@ -20,6 +20,7 @@ function babyNameSearch() {
   })
   .then(resp => resp.json())
   .then(obj => {
+    namesLoad()
     toggleMeaning(obj)
   })
 }
@@ -42,7 +43,7 @@ function namesLoad() {
         opt.id = `name[${names[name].id}]`
         opt.value = `name[${names[name].id}]`
         nameDiv.appendChild(opt)
-    }
+      }
     }
   })
 }
@@ -53,22 +54,23 @@ function toggleMeaning(nameObject) {
   fetch(NAMEURL + optionId)
   .then(resp => resp.json())
   .then(name => {
-    let nameDiv = document.getElementById('view-names')
+    // let nameDiv = document.getElementById('view-names')
     document.getElementById('selected-name').innerHTML =
     `<div id="name-info"class="row name-transition">
       <div class="card card-body name-info"">
         <h4>Meaning of ${name.name}</h4>
         <p>${name.meaning}</p>
+        <p>People think this name is: <strong>${name.definition}</strong></p>
+
         <a href="#" onclick="deleteName(${name.id})">Delete</a>
       </div>
     </div>
     `
-    namesLoad()
   })
 }
 
 function deleteName(nameId) {
-  // event.preventDefault()
+  event.preventDefault()
   fetch(NAMEURL + nameId, {
     method: "DELETE"
   })

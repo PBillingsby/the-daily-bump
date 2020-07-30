@@ -1,13 +1,39 @@
 const APPOINTMENT_BASE_URL = 'http://localhost:3000/appointments/'
 
 class Appointment {
-  constructor(id, doctorName, appointmentDate, appointmentLocation, appointmentNotes) {
+  constructor(id, doctorName, appointmentDate, appointmentLocation, appointmentNotes, pastAppointment) {
     this.id = id,
     this.doctorName = doctorName,
     this.appointmentDate = appointmentDate,
     this.appointmentLocation = appointmentLocation,
-    this.appointmentNotes = appointmentNotes
+    this.appointmentNotes = appointmentNotes,
+    this.pastAppointment = pastAppointment
   }
+
+  appointmentHandle() {
+    let ul = document.createElement('ul')
+    ul.classList.add('list-group', 'list-group-horizontal')
+    for (let attribute in this) {
+      let li = document.createElement('li')
+      li.classList.add('appointment-attribute', 'list-group-item')
+      let attributeStringSplit = attribute.match(/[A-Z]+[^A-Z]*|[^A-Z]+/g)
+      if (attribute !== 'id') {
+        li.innerHTML = `<strong>${attributeStringSplit.join(" ").toUpperCase()}:</strong> ${this[attribute]}`
+      }
+      else {
+        li.innerHTML = `<a href="#" onclick="this.deleteAppointment()" class="text-center">Delete</a><br>`
+      }
+      ul.appendChild(li)
+    }
+    document.getElementById('appointments').append(ul)
+  }
+  deleteAppointment() {
+    debugger
+    event.preventDefault()
+    fetch(APPOINTMENT_BASE_URL + appointmentId, {
+      method: 'DELETE'})
+      .then(resp => appointmentsLoad()
+    )}
 }
 function clearAppointmentDiv() {
   document.getElementById('appointments').innerHTML = ""
@@ -29,7 +55,6 @@ function appointmentFormLoad() {
       <input type="submit">
   </form>`
 }
-
 function handleAppointment() {
   event.preventDefault()
   const appointment = {
@@ -47,8 +72,8 @@ function handleAppointment() {
     },
     body: JSON.stringify(appointment)
   })
-  .then(resp => 
-    appointmentsLoad())
+  .then(resp => {
+    appointmentsLoad()})
 }
 
 function appointmentsLoad() {
@@ -65,37 +90,12 @@ function appointmentsLoad() {
         let formattedDateTime = dataArray.appointment_date.split('T')
         let time
         formattedDateTime[1].slice(0,2) > 12 ? time = "PM" : time = "AM"
+        const appointmentStatus = dataArray.pastAppointment ? "Appointment Done" : "Upcoming"
         let newDateTime = new Date(formattedDateTime[0]).toLocaleDateString() + ' @ ' + formattedDateTime[1].slice(0,5) + time
-        let newAppointment = new Appointment(dataArray.id, dataArray.doctor_name, newDateTime, dataArray.location, dataArray.appointment_information)
-        appointmentHandle(newAppointment)
+        
+        let newAppointment = new Appointment(dataArray.id, dataArray.doctor_name, newDateTime, dataArray.location, dataArray.appointment_information, appointmentStatus)
+        newAppointment.appointmentHandle()
       }
     }
   })
-}
-
-function appointmentHandle(appointmentObject) {
-  let ul = document.createElement('ul')
-  ul.classList.add('list-group', 'list-group-horizontal')
-  for (let attribute in appointmentObject) {
-    let li = document.createElement('li')
-    li.classList.add('appointment-attribute', 'list-group-item')
-    let attributeStringSplit = attribute.match(/[A-Z]+[^A-Z]*|[^A-Z]+/g)
-    if (attribute !== 'id') {
-      li.innerHTML = `<strong>${attributeStringSplit.join(" ").toUpperCase()}:</strong> ${appointmentObject[attribute]}`
-    }
-    else {
-      li.innerHTML = `<a href="#" onclick="deleteAppointment(${appointmentObject[attribute]})" class="text-center">Delete</a><br>`
-    }
-    ul.appendChild(li)
-  }
-  document.getElementById('appointments').append(ul)
-}
-
-
-function deleteAppointment(appointmentId) {
-  // event.preventDefault()
-  fetch(APPOINTMENT_BASE_URL + appointmentId, {
-    method: 'DELETE'})
-    .then(resp => appointmentsLoad()
-  )
 }
