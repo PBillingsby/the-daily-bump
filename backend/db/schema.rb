@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2020_07_28_165818) do
     t.string "doctor_name"
     t.string "location"
     t.text "appointment_information"
+    t.boolean "past_appointment"
     t.index ["baby_id"], name: "index_appointments_on_baby_id"
   end
 
@@ -52,10 +53,14 @@ ActiveRecord::Schema.define(version: 2020_07_28_165818) do
     t.integer "days_until_due"
   end
 
+  create_table "checklists", force: :cascade do |t|
+  end
+
   create_table "names", force: :cascade do |t|
     t.bigint "baby_id"
     t.string "name"
     t.text "meaning"
+    t.string "definition"
     t.index ["baby_id"], name: "index_names_on_baby_id"
   end
 

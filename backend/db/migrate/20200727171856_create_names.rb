@@ -4,6 +4,7 @@ class CreateNames < ActiveRecord::Migration[6.0]
       t.belongs_to :baby
       t.string :name
       t.text :meaning
+      t.string :definition
     end
   end
 end

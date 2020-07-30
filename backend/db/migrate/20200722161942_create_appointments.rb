@@ -6,6 +6,7 @@ class CreateAppointments < ActiveRecord::Migration[6.0]
       t.string :doctor_name
       t.string :location
       t.text :appointment_information
+      t.boolean :past_appointment
     end
   end
 end

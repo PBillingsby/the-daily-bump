@@ -16,10 +16,19 @@ class BabiesController < ApplicationController
     end
   end
 
+  def index
+    render json: {error: 'No Baby Yet'}
+  end
+
   def update
     baby = Baby.find_by(id: 1)
     baby.images.attach(params[:image])
     render json: baby
+  end
+
+  def images
+    baby = Baby.find_by(id: params[:id])
+    render json: baby.images.each {|img| img.blob()}
   end
 
   def babies_params
@@ -31,8 +40,6 @@ class BabiesController < ApplicationController
     baby = Baby.find_by(id: params[:id])
     if !!baby
       baby.update(days_until_due: Date.parse(baby.due_date.to_s).mjd - Date.parse(Date.today.to_s).mjd)
-    else
-      params[:days_until_due] = Date.parse(params[:due_date].to_s).mjd - Date.parse(Date.today.to_s).mjd
     end
   end
   
