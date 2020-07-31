@@ -29,6 +29,8 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'nokogiri'
 gem 'fast_jsonapi'
 gem 'httparty', '~> 0.13.7'
+gem 'nokogiri-styles'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
