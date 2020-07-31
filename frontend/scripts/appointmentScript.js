@@ -21,19 +21,12 @@ class Appointment {
         li.innerHTML = `<strong>${attributeStringSplit.join(" ").toUpperCase()}:</strong> ${this[attribute]}`
       }
       else {
-        li.innerHTML = `<a href="#" onclick="this.deleteAppointment()" class="text-center">Delete</a><br>`
+        li.innerHTML += `<a href="#" onclick="deleteAppointment(${this.id})" class="text-center">Delete</a><br>`
       }
       ul.appendChild(li)
     }
     document.getElementById('appointments').append(ul)
   }
-  deleteAppointment() {
-    debugger
-    event.preventDefault()
-    fetch(APPOINTMENT_BASE_URL + appointmentId, {
-      method: 'DELETE'})
-      .then(resp => appointmentsLoad()
-    )}
 }
 function clearAppointmentDiv() {
   document.getElementById('appointments').innerHTML = ""
@@ -99,3 +92,10 @@ function appointmentsLoad() {
     }
   })
 }
+
+function deleteAppointment(appointmentId) {
+  event.preventDefault()
+  fetch(APPOINTMENT_BASE_URL + appointmentId, {
+    method: 'DELETE'})
+    .then(resp => appointmentsLoad()
+  )}
