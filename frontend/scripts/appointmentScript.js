@@ -1,13 +1,12 @@
 const APPOINTMENT_BASE_URL = 'http://localhost:3000/appointments/'
 
 class Appointment {
-  constructor(id, doctorName, appointmentDate, appointmentLocation, appointmentNotes, pastAppointment) {
+  constructor(id, doctorName, appointmentDate, appointmentLocation, appointmentNotes) {
     this.id = id,
     this.doctorName = doctorName,
     this.appointmentDate = appointmentDate,
     this.appointmentLocation = appointmentLocation,
-    this.appointmentNotes = appointmentNotes,
-    this.pastAppointment = pastAppointment
+    this.appointmentNotes = appointmentNotes
   }
 
   appointmentHandle() {

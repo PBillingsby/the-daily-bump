@@ -18,20 +18,28 @@ class Baby {
       let baby = new Baby(babyObject.id, babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_due, Math.floor(babyObject.days_until_due / 7))
       if (babyObject.error) {
         // remove appointment form
-        document.getElementById('name-form').style.display = "none"
-        document.getElementById('view-names').style.display = "none"
-        document.getElementById('images').style.display = "none"
-        document.getElementById('appointment-form').style.display = "none"
+        baby.noBabyHandle()
       }
       else {
         // If the baby object is found, show appointment form
-        document.getElementById('images').style.display = "block"
-        document.getElementById('appointment-form').style.display = "block"
-        document.getElementById('name-form').style.display = "block"
-        baby.handleBaby()
-        baby.fetchImages()
+        baby.thisBabyHandle()
       }
     })
+  }
+
+  noBabyHandle() {
+    document.getElementById('name-form').style.display = "none"
+    document.getElementById('view-names').style.display = "none"
+    document.getElementById('images').style.display = "none"
+    document.getElementById('appointment-form').style.display = "none"
+  }
+
+  thisBabyHandle() {
+    document.getElementById('images').style.display = "block"
+    document.getElementById('appointment-form').style.display = "block"
+    document.getElementById('name-form').style.display = "block"
+    this.handleBaby()
+    this.fetchImages()
   }
 
   handleBaby() {

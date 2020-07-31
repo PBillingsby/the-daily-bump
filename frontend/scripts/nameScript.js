@@ -28,6 +28,7 @@ class Name {
   }
 }
 document.addEventListener('DOMContentLoaded', () => {
+  this.namesLoad()
   event.preventDefault()
 })
 
@@ -44,9 +45,8 @@ function babyNameSearch() {
   .then(resp => resp.json())
   .then(obj => {
     const newName = new Name(obj.name, obj.meaning, obj.definition, obj.id)
-    newName.namesLoad()
     toggleMeaning(newName)
-  })
+    })
 }
 
 function toggleMeaning(nameObject) {
