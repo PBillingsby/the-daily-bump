@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :past_appointment, only: [:create, :index]
+  before_action :past_appointment, only: [:index]
   def create
     appointment = Appointment.create(appointment_params)
     render json: AppointmentSerializer.new(appointment).serialized_json
@@ -25,8 +25,8 @@ class AppointmentsController < ApplicationController
 
   private
   def past_appointment
-    Baby.first.appointments.each do |apt|
-      apt.appointment_date < Date.today ? apt.past_appointment = true : apt.past_appointment = false
+    Appointment.all.each do |apt|
+      apt.appointment_date < Date.today ? apt.update(past_appointment: true) : apt.update(past_appointment: false)
     end
   end
 end
