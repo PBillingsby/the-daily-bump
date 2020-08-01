@@ -7,7 +7,7 @@ class Name {
     this.id = id
   }
   
-  namesLoad() {
+  static namesLoad() {
     const nameDiv = document.getElementById('view-names')
     fetch(NAMEURL)
     .then(resp=>resp.json())
@@ -26,9 +26,19 @@ class Name {
       }
     })
   }
+
+  static deleteName(nameId) {
+    event.preventDefault()
+    document.getElementById(`name[${nameId}]`).remove()
+    fetch(NAMEURL + nameId, {
+      method: "DELETE"
+    })
+    event.target.parentNode.remove()
+    Name.namesLoad()
+  }
 }
 document.addEventListener('DOMContentLoaded', () => {
-  this.namesLoad()
+  Name.namesLoad()
   event.preventDefault()
 })
 
@@ -62,18 +72,9 @@ function toggleMeaning(nameObject) {
         <h4>Meaning of ${name.name}</h4>
         <p>${name.meaning}</p>
         <p>People think this name is: <strong>${name.definition}</strong></p>
-        <a href="#" onclick="deleteName(${name.id})">Delete</a>
+        <a href="#" onclick="Name.deleteName(${name.id})">Delete</a>
       </div>
     </div>
     `
   })
-}
-
-function deleteName(nameId) {
-  event.preventDefault()
-  fetch(NAMEURL + nameId, {
-    method: "DELETE"
-  })
-  document.getElementById(`name[${nameId}]`).remove()
-  event.target.parentNode.remove()
 }
