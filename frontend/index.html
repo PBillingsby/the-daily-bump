@@ -25,12 +25,6 @@
 
       <!-- WHEN THERE IS A BABY, BELOW DIV DISAPPEARS -->
       <div id="intro-div" class="d-inline-flex">
-        <div id="introduction">
-            <h1 class="text-center">The Daily Bump</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis doloremque laborum, explicabo beatae libero eius distinctio praesentium quam possimus! Deleniti nesciunt eum, enim distinctio doloribus doloremque repellendus nemo expedita? Voluptatum?</p>
-            <h4>Keep track of appointments</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam at voluptate, fuga iste molestias voluptatibus porro. Quis, iure. Explicabo fugiat, minima quisquam ullam quod aut voluptatem vel laboriosam porro facere?</p>
-        </div>
         <div id="baby-form" class="text-center ml-5">
           <form id="new-baby-form" class="p-3" onsubmit="newBaby()">
             <h5>Add Baby Information</h5>
@@ -53,7 +47,7 @@
       <!-- IF THERE IS NO BABY, A FORM WILL GO HERE -->
     <div id="content-box">
       <div id="name-form" class="mx-auto">
-        <form onsubmit="babyNameSearch()">
+        <form onsubmit="Name.babyNameSearch()">
           <h4 class="text-center">Add Baby Names</h4>
           <div class="form-group text-center">
             <input type="text" id="add-name" placeholder="Search Baby Name">
@@ -73,8 +67,9 @@
          <!-- APPOINTMENT FORM AND APPOINTMENTS VIEW -->
          <div class=" appointment-grid text-center">
             <h4>Appointments</h4>
-            <button id="add-appointment" class="m-2 btn-sm" onclick="appointmentFormLoad()">Add Appointment</button>
-            <button id="view-appointment" class="m-2 btn-sm" onclick="appointmentsLoad()">View Appointments</button>
+            <button id="add-appointment" class="m-2 btn-sm" onclick="Appointment.appointmentFormLoad()">Add Appointment</button>
+            <button id="view-appointment" class="m-2 btn-sm" onclick="Appointment.appointmentsLoad()">View Appointments</button>
+            <button id="view-appointment" class="m-2 btn-sm" onclick="Appointment.appointmentsLoad()">Past Appointments</button>
 
             <div id="new-appointment-form" class="mx-auto"></div>
             <div id="appointments" class="mx-auto"></div>

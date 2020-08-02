@@ -117,13 +117,20 @@ function handleImage() {
 }
 
 let babySizes = {
-  0: ["https://img.icons8.com/carbon-copy/100/000000/pumpkin--v2.png", "Ready to go!"],
+  38: ["images/size-images/poppy.png", "Poppy Seed"],
+  37: ["images/size-images/apple.png", "Apple Seed"],
+  36: ["images/size-images/sweet-pea.png", "Sweet Pea"],
+  35: ["images/size-images/blueberries.png", "Blueberry"],
+  34: ["images/size-images/raspberry.png", "Raspberry"],
+  33: ["images/size-images/olive.png", "Olive"],
+  32: ["images/size-images/prune.png", "Prune"],
+  31: ["images/size-images/lime.png", "Lime"],
+  30: ["images/size-images/plum.png", "Plum"],
+  29: ["images/size-images/peach.png", "Peach"],
+  28: ["images/size-images/lemon.png", "Lemon"],
+  27: ["images/size-images/orange.png", "Naval Orange"],
   22: ['https://freesvg.org/img/Onion-Zwiebel-lineart1.png', "Onion"],
-  74: ['https://freesvg.org/img/Onion-Zwiebel-lineart1.png', "Onion"],
-  42: ["https://www.svgrepo.com/show/91419/seeds.svg", "Poppy Seed"],
-  41: ["https://www.svgrepo.com/show/91419/seeds.svg", "Apple Seed"],
-  40: ["https://img.icons8.com/carbon-copy/100/000000/peas.png", "Sweet Pea"],
-  39: ["https://img.icons8.com/ios/50/000000/blueberry.png", "Blueberry"],
-  38: ["https://img.icons8.com/ios/50/000000/raspberry.png", "Raspberry"],
-  37: ["https://img.icons8.com/dotty/80/000000/olive.png", "Olive"]
+  21: ["images/size-images/sweet-potato.png", "Sweet Potato"],
+
+  0: ["https://img.icons8.com/carbon-copy/100/000000/pumpkin--v2.png", "Ready to go!"]
 }

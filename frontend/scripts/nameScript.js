@@ -26,7 +26,23 @@ class Name {
       }
     })
   }
-
+  static babyNameSearch() {
+    event.preventDefault()
+    fetch(NAMEURL, {
+      method: "POST",
+      headers: {
+        'Content-Type':'application/json',
+        'Accept':'application/json'
+      },
+      body: JSON.stringify({name: document.getElementById('add-name').value})
+    })
+    .then(resp => resp.json())
+    .then(obj => {
+      const newName = new Name(obj.name, obj.meaning, obj.definition, obj.id)
+      
+      toggleMeaning(newName)
+    })
+  }
   static deleteName(nameId) {
     event.preventDefault()
     document.getElementById(`name[${nameId}]`).remove()
@@ -34,30 +50,14 @@ class Name {
       method: "DELETE"
     })
     event.target.parentNode.remove()
-    Name.namesLoad()
   }
+
 }
 document.addEventListener('DOMContentLoaded', () => {
   Name.namesLoad()
   event.preventDefault()
 })
 
-function babyNameSearch() {
-  event.preventDefault()
-  fetch(NAMEURL, {
-    method: "POST",
-    headers: {
-      'Content-Type':'application/json',
-      'Accept':'application/json'
-    },
-    body: JSON.stringify({name: document.getElementById('add-name').value})
-  })
-  .then(resp => resp.json())
-  .then(obj => {
-    const newName = new Name(obj.name, obj.meaning, obj.definition, obj.id)
-    toggleMeaning(newName)
-    })
-}
 
 function toggleMeaning(nameObject) {
   let optionId
@@ -65,7 +65,7 @@ function toggleMeaning(nameObject) {
   fetch(NAMEURL + optionId)
   .then(resp => resp.json())
   .then(name => {
-    // let nameDiv = document.getElementById('view-names')
+    let nameDiv = document.getElementById('view-names')
     document.getElementById('selected-name').innerHTML =
     `<div id="name-info"class="row name-transition">
       <div class="card card-body name-info"">
@@ -76,5 +76,10 @@ function toggleMeaning(nameObject) {
       </div>
     </div>
     `
+    // const opt = document.createElement('option')
+    // opt.appendChild(document.createTextNode(`${name.name}`) )
+    // opt.id = `name[${name.id}]`
+    // opt.value = `name[${name.id}]`
+    // nameDiv.append(opt)
   })
 }
