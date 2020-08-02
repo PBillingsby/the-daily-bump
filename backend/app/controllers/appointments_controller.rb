@@ -1,16 +1,20 @@
 class AppointmentsController < ApplicationController
-  before_action :past_appointment, only: [:index]
+  # before_action :past_appointment, only: [:index]
   def create
     appointment = Appointment.create(appointment_params)
     render json: AppointmentSerializer.new(appointment).serialized_json
   end
 
   def index
-    appointments = Appointment.all
-    if appointments.count > 0
-      render json: AppointmentSerializer.new(appointments).serialized_json
-    else
+    if params[:query] == "View Appointments"
+      appointments = Appointment.where(past_appointment: false)
+    else params[:query] == "Past Appointments"
+      appointments = Appointment.where(past_appointment: true)
+    end
+    if Appointment.count == 0 || appointments.empty?
       render json: {error: 'No Appointments Yet'}
+    else
+      render json: AppointmentSerializer.new(appointments).serialized_json 
     end
   end
 
@@ -24,9 +28,9 @@ class AppointmentsController < ApplicationController
   end
 
   private
-  def past_appointment
-    Appointment.all.each do |apt|
-      apt.appointment_date < Date.today ? apt.update(past_appointment: true) : apt.update(past_appointment: false)
-    end
-  end
+  # def past_appointment
+  #   Appointment.all.each do |apt|
+  #     apt.appointment_date < Date.today ? apt.update(past_appointment: true) : apt.update(past_appointment: false)
+  #   end
+  # end
 end

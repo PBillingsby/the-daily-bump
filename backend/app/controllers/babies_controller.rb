@@ -1,5 +1,5 @@
 class BabiesController < ApplicationController
-  before_action :calculate_days_until_due, only: [:show, :create]
+  before_action :calculate_days_until_due, only: [:show, :create, :update]
   
   def create
     baby = Baby.create(babies_params)
@@ -28,11 +28,12 @@ class BabiesController < ApplicationController
 
   def images
     baby = Baby.find_by(id: params[:id])
-    render json: baby.images.each {|img| img.blob()}
+    byebug
+    render json: baby, methods: [:images_url]
   end
 
   def babies_params
-    params.require(:baby).permit(:due_date, :mother, :father, :days_until_due)
+    params.require(:baby).permit(:due_date, :mother, :father, :days_until_due, images: [])
   end
 
   private
