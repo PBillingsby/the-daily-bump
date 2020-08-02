@@ -10,7 +10,7 @@ class BabiesController < ApplicationController
   def show
     baby = Baby.find_by(id: params[:id])
     if baby
-      render json: baby
+      render json: baby, methods: [:images_urls]
     else
       render json: {error: 'No Baby Yet'}
     end
@@ -28,7 +28,6 @@ class BabiesController < ApplicationController
 
   def images
     baby = Baby.find_by(id: params[:id])
-    byebug
     render json: baby, methods: [:images_url]
   end
 

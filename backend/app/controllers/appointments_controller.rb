@@ -1,12 +1,11 @@
 class AppointmentsController < ApplicationController
-  # before_action :past_appointment, only: [:index]
   def create
     appointment = Appointment.create(appointment_params)
     render json: AppointmentSerializer.new(appointment).serialized_json
   end
 
   def index
-    if params[:query] == "View Appointments"
+    if params[:query] == "View Upcoming Appointments"
       appointments = Appointment.where(past_appointment: false)
     else params[:query] == "Past Appointments"
       appointments = Appointment.where(past_appointment: true)
@@ -26,11 +25,4 @@ class AppointmentsController < ApplicationController
   def appointment_params
     params.require(:appointment).permit(:baby_id, :doctor_name, :appointment_date, :location, :appointment_information)
   end
-
-  private
-  # def past_appointment
-  #   Appointment.all.each do |apt|
-  #     apt.appointment_date < Date.today ? apt.update(past_appointment: true) : apt.update(past_appointment: false)
-  #   end
-  # end
 end

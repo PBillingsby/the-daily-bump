@@ -8,7 +8,7 @@ class Baby < ActiveRecord::Base
   has_many :appointments
   has_many_attached :images
 
-  def images_url
-    self.images.each {|img| puts img.image.blob}
+  def images_urls
+    self.images.map{|img| url_for(img)}
   end
 end
