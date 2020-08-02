@@ -33,13 +33,10 @@ header h4 {
 
 #content-box {
   display: grid;
-  grid-template-columns: 1fr 1fr
+  grid-template-columns: 1fr 1fr;
 }
-#appointments, #name-form {
-  font-size: 70%;
-}
-#new-appointment-form input, label {
-  display:block;
+#content-results {
+  max-width: 50%;
 }
 .appointment-button {
   max-width: 40vw;

@@ -13,6 +13,7 @@ class Name {
     .then(resp=>resp.json())
     .then(names => {
       for (name in names) {
+        // const newArr = Array.from(nameDiv.children)
         let opt = document.createElement('option')
         if (name === "error") {
           nameDiv.children[0].innerText = names[name]
@@ -39,34 +40,31 @@ class Name {
     .then(resp => resp.json())
     .then(obj => {
       const newName = new Name(obj.name, obj.meaning, obj.definition, obj.id)
-      
       toggleMeaning(newName)
     })
   }
   static deleteName(nameId) {
     event.preventDefault()
     document.getElementById(`name[${nameId}]`).remove()
+    event.target.parentNode.remove()
+
     fetch(NAMEURL + nameId, {
       method: "DELETE"
     })
-    event.target.parentNode.remove()
   }
-
 }
 document.addEventListener('DOMContentLoaded', () => {
   Name.namesLoad()
   event.preventDefault()
 })
 
-
-function toggleMeaning(nameObject) {
+function toggleMeaning(name) {
   let optionId
-  !!nameObject ? optionId = nameObject.id : optionId = event.target.children[event.target.selectedIndex].value.match(/\d+/)[0]
+  !!name ? optionId = name.id : optionId = event.target.children[event.target.selectedIndex].value.match(/\d+/)[0]
   fetch(NAMEURL + optionId)
   .then(resp => resp.json())
   .then(name => {
-    let nameDiv = document.getElementById('view-names')
-    document.getElementById('selected-name').innerHTML =
+    document.getElementById('content-results').innerHTML =
     `<div id="name-info"class="row name-transition">
       <div class="card card-body name-info"">
         <h4>Meaning of ${name.name}</h4>
@@ -83,3 +81,4 @@ function toggleMeaning(nameObject) {
     // nameDiv.append(opt)
   })
 }
+

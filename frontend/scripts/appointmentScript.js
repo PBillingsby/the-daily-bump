@@ -9,7 +9,7 @@ class Appointment {
     this.appointmentNotes = appointmentNotes
   }
 
-  appointmentHandle() {
+  appointmentHandle() { 
     let ul = document.createElement('ul')
     ul.classList.add('list-group', 'list-group-horizontal')
     for (let attribute in this) {
@@ -24,32 +24,41 @@ class Appointment {
       }
       ul.appendChild(li)
     }
-    document.getElementById('appointments').append(ul)
+    document.getElementById('content-results').append(ul)
   }
 
   static appointmentFormLoad() {
     Appointment.clearAppointmentDiv()
-    document.getElementById('appointments').innerHTML = `
-    <form id="appointmentForm" class="ml-4 text-left" onsubmit="handleAppointment()">
-        <label>Doctor Name</label>
-        <input type="text" name="doctor-name" id="doctor-name" placeholder="Doctor Name">
-        <label>Appointment Date</label>
-        <input type="datetime-local" name="appointment-date" id="appointment-date" placeholder="Date">
-        <label>Location</label>
-        <input type="text" name="loction" id="location" placeholder="Location">
-        <label>Additional Notes</label>
-        <input type="text" id="notes" placeholder="Notes">
-        <input type="submit">
-    </form>`
+    document.getElementById('content-results').innerHTML = appointmentFormHtml
+  }
+  static handleAppointment() {
+    event.preventDefault()
+    const appointment = {
+      baby_id: 1,
+      doctor_name: document.getElementById('doctor-name').value,
+      appointment_date: document.getElementById('appointment-date').value,
+      location: document.getElementById('location').value,
+      appointment_information: document.getElementById('notes').value
+    }
+    fetch(APPOINTMENT_BASE_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(appointment)
+    })
+    .then(resp => {
+      Appointment.appointmentsLoad()})
   }
   static appointmentsLoad() {
-    debugger
     Appointment.clearAppointmentDiv()
-    fetch(APPOINTMENT_BASE_URL)
+    let searchQuery = new URLSearchParams({query: event.target.innerText}) || ""
+    fetch('http://localhost:3000/appointments?' + searchQuery)
     .then(resp => resp.json())
     .then(apts => {
       if (apts.error) {
-        document.getElementById('appointments').innerHTML = `<h5>${apts.error}</h5>`
+        document.getElementById('content-results').innerHTML = `<h5>${apts.error}</h5>`
       }
       else {
         for (let appointment in apts.data) {
@@ -67,30 +76,8 @@ class Appointment {
     })
   }
   static clearAppointmentDiv() {
-    document.getElementById('appointments').innerHTML = ""
-    document.getElementById('new-appointment-form').innerHTML = ""
+    document.getElementById('content-results').innerHTML = ""
   }
-}
-
-function handleAppointment() {
-  event.preventDefault()
-  const appointment = {
-    baby_id: 1,
-    doctor_name: document.getElementById('doctor-name').value,
-    appointment_date: document.getElementById('appointment-date').value,
-    location: document.getElementById('location').value,
-    appointment_information: document.getElementById('notes').value
-  }
-  fetch(APPOINTMENT_BASE_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify(appointment)
-  })
-  .then(resp => {
-    Appointment.appointmentsLoad()})
 }
 
 function deleteAppointment(appointmentId) {
@@ -99,3 +86,35 @@ function deleteAppointment(appointmentId) {
     method: 'DELETE'})
     .then(resp => Appointment.appointmentsLoad()
   )}
+
+  const appointmentFormHtml = `<form id="Appointment.appointmentForm" class="mx-auto" onsubmit="handleAppointment()">
+  <div class="row">
+    <div class="form-group">
+      <label class="float-left">Doctor Name</label>
+      <input type="text" class="form-control" name="doctor-name" id="doctor-name" placeholder="Doctor Name">
+    </div>
+  </div>  
+  <div class="row">
+    <div class="form-group">
+      <label class="float-left">Appointment Date</label>
+      <input type="datetime-local" class="form-control" name="appointment-date" id="appointment-date" placeholder="Date">
+    </div>
+  </div>    
+  <div class="row">
+    <div class="form-group">   
+      <label class="float-left">Location</label>
+      <input type="text" name="loction" class="form-control" id="location" placeholder="Location">
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">  
+      <label class="float-left">Additional Notes</label>
+      <input type="text" id="notes" class="form-control" placeholder="Notes">
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group"> 
+      <input type="submit" class="float-left">
+    </div>
+  </div>
+</form>`
