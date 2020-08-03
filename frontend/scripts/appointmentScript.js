@@ -10,6 +10,7 @@ class Appointment {
   }
 
   appointmentHandle() { 
+    Appointment.clearAppointmentDiv()
     let ul = document.createElement('ul')
     ul.classList.add('list-group', 'list-group-horizontal')
     for (let attribute in this) {
@@ -49,19 +50,17 @@ class Appointment {
       body: JSON.stringify(appointment)
     })
     .then(resp => resp.json()
-    .then(appointmentObject => {
-      appointmentObject.appointmentHandle()
+    .then(aptObject => {
+      let newAppointment = new Appointment(aptObject.id, aptObject.doctor_name, aptObject.appointment_date, aptObject.location, aptObject.appointment_information)
+      newAppointment.appointmentHandle()
     }))
   }
   static appointmentsLoad() {
-    debugger
-
-    let searchQuery = new URLSearchParams({query: event.target.innerText})
-    Appointment.clearAppointmentDiv()
-
-    fetch('http://localhost:3000/appointments?' + searchQuery)
+    fetch('http://localhost:3000/appointments?' + new URLSearchParams({query: event.target.innerText}))
     .then(resp => resp.json())
     .then(apts => {
+      Appointment.clearAppointmentDiv()
+
       if (apts.error) {
         document.getElementById('content-results').innerHTML = `<h5>${apts.error}</h5>`
       }
