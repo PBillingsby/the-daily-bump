@@ -28,7 +28,7 @@ class BabiesController < ApplicationController
 
   def destroy
     baby = Baby.find_by(id: 1)
-    baby.images.find_by(id: params[:query]).delete
+    baby.images.find_by(id: params[:image_id]).delete
   end
 
   def babies_params
