@@ -10,6 +10,22 @@ class Baby {
     this.daysUntilDue = daysUntilDue,
     this.weeksUntilDue = weeksUntilDue
   }
+  fetchBabyInformation() {
+    fetch(BASEURL)
+    .then(resp => resp.json())
+    .then(babyObject => {
+      let baby = new Baby(babyObject.id, babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_due, Math.floor(babyObject.days_until_due / 7))
+      if (babyObject.error) {
+        // remove appointment form
+        baby.noBabyHandle()
+      }
+      else {
+        // If the baby object is found, show appointment form
+        baby.fetchImages()
+        baby.thisBabyHandle()
+      }
+    })
+  }
   fetchImages() {
     fetch(BASEURL)
     .then(resp => resp.json())
@@ -25,25 +41,9 @@ class Baby {
           image.classList.add('progress-image', 'm-3', 'rounded')
           image.addEventListener('click', Baby.imageResize)
           imageDiv.append(image)
-          imageDiv.innerHTML += `<a href="#" onclick="deleteImage('${image.src}')">Delete</a>`
+          imageDiv.innerHTML += `<a href="#" onclick="deleteImage('${img[1]}')">Delete</a>`
           document.getElementById('images-loaded').append(imageDiv)
         })
-      }
-    })
-  }
-  fetchBabyInformation() {
-    fetch(BASEURL)
-    .then(resp => resp.json())
-    .then(babyObject => {
-      let baby = new Baby(babyObject.id, babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_due, Math.floor(babyObject.days_until_due / 7))
-      if (babyObject.error) {
-        // remove appointment form
-        baby.noBabyHandle()
-      }
-      else {
-        // If the baby object is found, show appointment form
-        baby.fetchImages()
-        baby.thisBabyHandle()
       }
     })
   }
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
   newBabyWithId.fetchBabyInformation()
 })
 function handleImage() {
-  // ADD IMAGE THROUGH A PUT REQUEST
+  // ADD IMAGE THROUGH A PUT REQUEST 
   event.preventDefault()
   const formData = new FormData()
   formData.append('image', document.getElementById('image').files[0])
@@ -129,12 +129,10 @@ function handleImage() {
     method: 'PUT',
     body: formData
   })
-  .then(resp => resp.json())
-  .then(baby => location.reload())
 }
-function deleteImage(url) {
+function deleteImage(imgId) {
   event.preventDefault()
-  fetch(BASEURL, {
+  fetch(BASEURL + "/?" + new URLSearchParams({image_id: imgId}), {
     method: "DELETE"
   })
 }

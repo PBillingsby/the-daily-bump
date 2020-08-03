@@ -40,7 +40,6 @@ class Appointment {
       location: document.getElementById('location').value,
       appointment_information: document.getElementById('notes').value
     }
-    debugger
     fetch(APPOINTMENT_BASE_URL, {
       method: 'POST',
       headers: {
@@ -49,12 +48,17 @@ class Appointment {
       },
       body: JSON.stringify(appointment)
     })
-    .then(resp => {
-      Appointment.appointmentsLoad()})
+    .then(resp => resp.json()
+    .then(appointmentObject => {
+      appointmentObject.appointmentHandle()
+    }))
   }
   static appointmentsLoad() {
+    debugger
+
+    let searchQuery = new URLSearchParams({query: event.target.innerText})
     Appointment.clearAppointmentDiv()
-    let searchQuery = new URLSearchParams({query: event.target.innerText}) || ""
+
     fetch('http://localhost:3000/appointments?' + searchQuery)
     .then(resp => resp.json())
     .then(apts => {
@@ -88,7 +92,7 @@ function deleteAppointment(appointmentId) {
     .then(resp => Appointment.appointmentsLoad()
   )}
 
-  const appointmentFormHtml = `<form id="appointmentForm" class="mx-auto" onsubmit="handleAppointment()">
+  const appointmentFormHtml = `<form id="appointmentForm" class="mx-auto" onsubmit="Appointment.handleAppointment()">
   <div class="row">
     <div class="form-group">
       <label class="float-left">Doctor Name</label>
