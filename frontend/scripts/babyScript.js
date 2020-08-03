@@ -119,9 +119,9 @@ const newBabyWithId = new Baby(1)
 document.addEventListener('DOMContentLoaded', ()=> {
   event.preventDefault()
   newBabyWithId.fetchBabyInformation()
-  // for (img in babySizes) {
-  //   document.getElementById('images-test').innerHTML += `<img src="${babySizes[img][0]}" class="card-img">`
-  // }
+  for (img in babySizes) {
+    document.getElementById('images-test').innerHTML += `<img src="${babySizes[img][0]}" class="card-img">`
+  }
 })
 function handleImage() {
   event.preventDefault()
