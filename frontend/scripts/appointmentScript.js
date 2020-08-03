@@ -40,6 +40,7 @@ class Appointment {
       location: document.getElementById('location').value,
       appointment_information: document.getElementById('notes').value
     }
+    debugger
     fetch(APPOINTMENT_BASE_URL, {
       method: 'POST',
       headers: {
@@ -87,7 +88,7 @@ function deleteAppointment(appointmentId) {
     .then(resp => Appointment.appointmentsLoad()
   )}
 
-  const appointmentFormHtml = `<form id="Appointment.appointmentForm" class="mx-auto" onsubmit="handleAppointment()">
+  const appointmentFormHtml = `<form id="appointmentForm" class="mx-auto" onsubmit="handleAppointment()">
   <div class="row">
     <div class="form-group">
       <label class="float-left">Doctor Name</label>

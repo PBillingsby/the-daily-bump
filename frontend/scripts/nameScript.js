@@ -40,6 +40,7 @@ class Name {
     .then(resp => resp.json())
     .then(obj => {
       const newName = new Name(obj.name, obj.meaning, obj.definition, obj.id)
+      debugger
       toggleMeaning(newName)
     })
   }
@@ -47,7 +48,6 @@ class Name {
     event.preventDefault()
     document.getElementById(`name[${nameId}]`).remove()
     event.target.parentNode.remove()
-
     fetch(NAMEURL + nameId, {
       method: "DELETE"
     })
@@ -70,15 +70,10 @@ function toggleMeaning(name) {
         <h4>Meaning of ${name.name}</h4>
         <p>${name.meaning}</p>
         <p>People think this name is: <strong>${name.definition}</strong></p>
-        <a href="#" onclick="Name.deleteName(${name.id})">Delete</a>
+        <a href="#" onclick="Name.deleteName(${name.id})" class="text-center">Delete</a>
       </div>
     </div>
     `
-    // const opt = document.createElement('option')
-    // opt.appendChild(document.createTextNode(`${name.name}`) )
-    // opt.id = `name[${name.id}]`
-    // opt.value = `name[${name.id}]`
-    // nameDiv.append(opt)
   })
 }
 

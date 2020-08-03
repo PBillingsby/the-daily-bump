@@ -1,5 +1,5 @@
 
-const BASEURL = 'http://localhost:3000/babies/'
+const BASEURL = 'http://localhost:3000/babies/1'
 
 class Baby {
   constructor(babyId, dueDate, mother, father, daysUntilDue, weeksUntilDue) {
@@ -10,9 +10,29 @@ class Baby {
     this.daysUntilDue = daysUntilDue,
     this.weeksUntilDue = weeksUntilDue
   }
-
+  fetchImages() {
+    fetch(BASEURL)
+    .then(resp => resp.json())
+    .then(babyObj => {
+      if (babyObj.images_urls.length === 0) {
+        document.getElementById('images-loaded').remove()
+      }
+      else if (!babyObj.error) {
+        babyObj.images_urls.forEach(img => {
+          const imageDiv = document.createElement('div')
+          let image = new Image()
+          image.src = img
+          image.classList.add('progress-image', 'm-3', 'rounded')
+          image.addEventListener('click', Baby.imageResize)
+          imageDiv.append(image)
+          imageDiv.innerHTML += `<a href="#" onclick="deleteImage('${image.src}')">Delete</a>`
+          document.getElementById('images-loaded').append(imageDiv)
+        })
+      }
+    })
+  }
   fetchBabyInformation() {
-    fetch(BASEURL + this.babyId)
+    fetch(BASEURL)
     .then(resp => resp.json())
     .then(babyObject => {
       let baby = new Baby(babyObject.id, babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_due, Math.floor(babyObject.days_until_due / 7))
@@ -22,6 +42,7 @@ class Baby {
       }
       else {
         // If the baby object is found, show appointment form
+        baby.fetchImages()
         baby.thisBabyHandle()
       }
     })
@@ -39,7 +60,6 @@ class Baby {
     document.getElementById('appointment-form').style.display = "block"
     document.getElementById('name-form').style.display = "block"
     this.handleBaby()
-    this.fetchImages()
   }
 
   handleBaby() {
@@ -64,14 +84,34 @@ class Baby {
       </div>
     </div>`
     document.getElementById('intro-div').remove()
-
   }
 
-  fetchImages() {
-    fetch(BASEURL)
-    .then(resp => resp.json())
-    .then(babyObj => {
+  static newBaby() {
+    event.preventDefault()
+  
+    let baby = {
+      due_date: document.getElementById('due_date').value,
+      mother: document.getElementById('mother_name').value,
+      father: document.getElementById('father_name').value
+    }
+    fetch(BASEURL, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(baby)
     })
+    .then(resp => resp.json())
+    .then(obj => {
+      document.getElementById('appointment-form').style.display = "block"
+      let baby = new Baby(obj.id, obj.due_date, obj.mother, obj.father, obj.days_until_due, Math.floor(obj.days_until_due / 7))
+      baby.fetchBabyInformation()
+    })
+  }
+
+  static imageResize() {
+    event.target.classList.toggle('progress-clicked')
   }
 }
 const newBabyWithId = new Baby(1)
@@ -80,41 +120,25 @@ document.addEventListener('DOMContentLoaded', ()=> {
   event.preventDefault()
   newBabyWithId.fetchBabyInformation()
 })
-
-function newBaby() {
-  event.preventDefault()
-
-  let baby = {
-    due_date: document.getElementById('due_date').value,
-    mother: document.getElementById('mother_name').value,
-    father: document.getElementById('father_name').value
-  }
-  fetch(BASEURL, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify(baby)
-  })
-  .then(resp => resp.json())
-  .then(obj => {
-    document.getElementById('appointment-form').style.display = "block"
-    let baby = new Baby(obj.id, obj.due_date, obj.mother, obj.father, obj.days_until_due, Math.floor(obj.days_until_due / 7))
-    baby.fetchBabyInformation()
-  })
-}
 function handleImage() {
+  // ADD IMAGE THROUGH A PUT REQUEST
   event.preventDefault()
   const formData = new FormData()
   formData.append('image', document.getElementById('image').files[0])
-  fetch(BASEURL + "1", {
+  fetch(BASEURL, {
     method: 'PUT',
     body: formData
   })
   .then(resp => resp.json())
-  .then(baby => console.log(baby))
+  .then(baby => location.reload())
 }
+function deleteImage(url) {
+  event.preventDefault()
+  fetch(BASEURL, {
+    method: "DELETE"
+  })
+}
+
 
 let babySizes = {
   38: ["images/size-images/poppy.png", "Poppy Seed"],

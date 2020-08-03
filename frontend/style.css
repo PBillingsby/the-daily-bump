@@ -29,6 +29,15 @@ header h4 {
 .bg-baby-green {
   background-color: #eeebd9 !important;
 }
+
+.progress-image {
+  width: 10vw;
+  border: 1px solid pink;
+}
+
+.progress-clicked {
+  width: 40vw;
+}
 /* APPOINTMENTS */
 
 #content-box {

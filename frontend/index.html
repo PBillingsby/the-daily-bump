@@ -24,7 +24,7 @@
         <!-- WHEN THERE IS A BABY, BELOW DIV DISAPPEARS -->
         <div id="intro-div" class="d-inline-flex">
           <div id="baby-form" class="text-center ml-5">
-            <form id="new-baby-form" class="p-3" onsubmit="newBaby()">
+            <form id="new-baby-form" class="p-3" onsubmit="Baby.newBaby()">
               <h5>Add Baby Information</h5>
               <div class="form-group">
                 <input type="text" name="mother_name" id="mother_name" placeholder="Mother Name">
@@ -42,12 +42,12 @@
         </div>
       </div>
       <!-- IF THERE IS NO BABY, A FORM WILL GO HERE -->
-      <div id="content-box" class="mx-auto">
-        <div id="name-form" class="mx-auto">
-          <h4 class="text-center">Add Baby Names</h4>
+      <div id="content-box" class="pt-4 text-center">
+        <div id="name-form" class="">
+          <h4 class="">Add Baby Names</h4>
 
           <form onsubmit="Name.babyNameSearch()">
-            <div class="form-group text-center">
+            <div class="form-group">
               <input type="text" id="add-name" placeholder="Search Baby Name">
               <input type="submit" placeholder="Add Name">
             </div>
@@ -67,14 +67,18 @@
         </div>
       </div>
     </div>
-    <div id="content-results" class="mx-auto pt-3">
+    <div id="content-results" class="mx-auto pt-4">
       <div id="selected-name">
         <div>
           <div id="new-appointment-form" class="text-center"></div>
         </div>
         <div id="appointments" class="text-center"></div>
       </div>
-      <div id="images" class="text-center">
+    </div>
+    <div id="images" class="text-center pt-4">
+        <div id="images-loaded">
+          <h4>Images</h4>
+        </div>
         <h4>Add Image To Album</h4>
         <form id="baby-images" onsubmit="handleImage()">
           <div class="form-group">
@@ -83,7 +87,6 @@
           </div>
         </form>
       </div>
-    </div>
     </div>
   </body>
 </html>
