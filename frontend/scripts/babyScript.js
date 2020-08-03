@@ -121,13 +121,16 @@ document.addEventListener('DOMContentLoaded', ()=> {
   newBabyWithId.fetchBabyInformation()
 })
 function handleImage() {
-  // ADD IMAGE THROUGH A PUT REQUEST 
   event.preventDefault()
   const formData = new FormData()
   formData.append('image', document.getElementById('image').files[0])
   fetch(BASEURL, {
     method: 'PUT',
     body: formData
+  })
+  .then(resp => resp.json())
+  .then(babyObject => {
+    babyObject.fetchBabyInformation()
   })
 }
 function deleteImage(imgId) {

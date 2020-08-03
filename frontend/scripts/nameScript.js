@@ -6,14 +6,33 @@ class Name {
     this.definition = definition,
     this.id = id
   }
-  
+  toggleMeaning() {
+    let optionId
+    !!this ? optionId = this.id : optionId = event.target.children[event.target.selectedIndex].value.match(/\d+/)[0]
+    fetch(NAMEURL + optionId)
+    .then(resp => resp.json())
+    .then(name => {
+      document.getElementById('content-results').innerHTML =
+      `<div id="name-info"class="row name-transition">
+        <div class="card card-body name-info"">
+          <h4>Meaning of ${name.name}</h4>
+          <p>${name.meaning}</p>
+          <p><strong>People think this name is:</strong> ${name.definition}</p>
+          <a href="#" onclick="Name.deleteName(${name.id})" class="text-center">Delete</a>
+        </div>
+      </div>
+      `
+    })
+    Name.namesLoad()
+  }
   static namesLoad() {
     const nameDiv = document.getElementById('view-names')
+    nameDiv.innerHTML = ""
     fetch(NAMEURL)
     .then(resp=>resp.json())
     .then(names => {
+      nameDiv.innerHTML += `<option selected disabled value>View Saved Names</option>`
       for (name in names) {
-        // const newArr = Array.from(nameDiv.children)
         let opt = document.createElement('option')
         if (name === "error") {
           nameDiv.children[0].innerText = names[name]
@@ -38,10 +57,9 @@ class Name {
       body: JSON.stringify({name: document.getElementById('add-name').value})
     })
     .then(resp => resp.json())
-    .then(obj => {
-      const newName = new Name(obj.name, obj.meaning, obj.definition, obj.id)
-      debugger
-      toggleMeaning(newName)
+    .then(nameObj => {
+      const newName = new Name(nameObj.name, nameObj.meaning, nameObj.definition, nameObj.id)
+      newName.toggleMeaning()
     })
   }
   static deleteName(nameId) {
@@ -54,26 +72,20 @@ class Name {
   }
 }
 document.addEventListener('DOMContentLoaded', () => {
-  Name.namesLoad()
   event.preventDefault()
+
+  Name.namesLoad()
 })
 
-function toggleMeaning(name) {
-  let optionId
-  !!name ? optionId = name.id : optionId = event.target.children[event.target.selectedIndex].value.match(/\d+/)[0]
-  fetch(NAMEURL + optionId)
+function handleNameClick() {
+  const nameId = event.target.children[event.target.selectedIndex].value.match(/\d+/)[0]
+  fetch(NAMEURL + nameId)
   .then(resp => resp.json())
-  .then(name => {
-    document.getElementById('content-results').innerHTML =
-    `<div id="name-info"class="row name-transition">
-      <div class="card card-body name-info"">
-        <h4>Meaning of ${name.name}</h4>
-        <p>${name.meaning}</p>
-        <p>People think this name is: <strong>${name.definition}</strong></p>
-        <a href="#" onclick="Name.deleteName(${name.id})" class="text-center">Delete</a>
-      </div>
-    </div>
-    `
+  .then(nameObject => {
+    const name = new Name(nameObject.name, nameObject.meaning, nameObject.definition, nameObject.id)
+    name.toggleMeaning()
   })
 }
+
+
 

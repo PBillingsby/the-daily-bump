@@ -51,6 +51,9 @@ header h4 {
   max-width: 40vw;
   max-height: 10vh;
 }
+.sm-font-size {
+  font-size: 65%;
+}
 /* NAMES */
 
 .name-info {

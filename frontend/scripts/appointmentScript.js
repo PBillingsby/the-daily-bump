@@ -9,14 +9,14 @@ class Appointment {
     this.appointmentNotes = appointmentNotes
   }
 
-  appointmentHandle() { 
-    Appointment.clearAppointmentDiv()
-    let ul = document.createElement('ul')
+  appointmentHandle() {
+    const ul = document.createElement('ul')
     ul.classList.add('list-group', 'list-group-horizontal')
+    ul.id = `appointment[${this.id}]`
     for (let attribute in this) {
       let li = document.createElement('li')
-      li.classList.add('appointment-attribute', 'list-group-item')
-      let attributeStringSplit = attribute.match(/[A-Z]+[^A-Z]*|[^A-Z]+/g)
+      li.classList.add('appointment-attribute', 'list-group-item', 'sm-font-size')
+      const attributeStringSplit = attribute.match(/[A-Z]+[^A-Z]*|[^A-Z]+/g)
       if (attribute !== 'id') {
         li.innerHTML = `<strong>${attributeStringSplit.join(" ").toUpperCase()}:</strong> ${this[attribute]}`
       }
@@ -32,7 +32,7 @@ class Appointment {
     Appointment.clearAppointmentDiv()
     document.getElementById('content-results').innerHTML = appointmentFormHtml
   }
-  static handleAppointment() {
+  static newAppointment() {
     event.preventDefault()
     const appointment = {
       baby_id: 1,
@@ -52,11 +52,13 @@ class Appointment {
     .then(resp => resp.json()
     .then(aptObject => {
       let newAppointment = new Appointment(aptObject.id, aptObject.doctor_name, aptObject.appointment_date, aptObject.location, aptObject.appointment_information)
+      document.getElementById('appointmentForm').remove()
       newAppointment.appointmentHandle()
     }))
   }
   static appointmentsLoad() {
-    fetch('http://localhost:3000/appointments?' + new URLSearchParams({query: event.target.innerText}))
+    let query =  event.target.innerText ? new URLSearchParams({query: event.target.innerText}) : ""
+    fetch('http://localhost:3000/appointments?' + query)
     .then(resp => resp.json())
     .then(apts => {
       Appointment.clearAppointmentDiv()
@@ -70,10 +72,8 @@ class Appointment {
           let formattedDateTime = dataArray.appointment_date.split('T')
           let time
           formattedDateTime[1].slice(0,2) > 12 ? time = "PM" : time = "AM"
-          const appointmentStatus = dataArray.pastAppointment ? "Appointment Done" : "Upcoming"
-          let newDateTime = new Date(formattedDateTime[0]).toLocaleDateString() + ' @ ' + formattedDateTime[1].slice(0,5) + time
-          
-          let newAppointment = new Appointment(dataArray.id, dataArray.doctor_name, newDateTime, dataArray.location, dataArray.appointment_information, appointmentStatus)
+          let newDateTime = new Date(formattedDateTime[0]).toLocaleDateString() + ' @ ' + formattedDateTime[1].slice(0,5) + time          
+          let newAppointment = new Appointment(dataArray.id, dataArray.doctor_name, newDateTime, dataArray.location, dataArray.appointment_information)
           newAppointment.appointmentHandle()
         }
       }
@@ -88,10 +88,10 @@ function deleteAppointment(appointmentId) {
   event.preventDefault()
   fetch(APPOINTMENT_BASE_URL + appointmentId, {
     method: 'DELETE'})
-    .then(resp => Appointment.appointmentsLoad()
-  )}
+    document.getElementById(`appointment[${appointmentId}]`).remove()
+  }
 
-  const appointmentFormHtml = `<form id="appointmentForm" class="mx-auto" onsubmit="Appointment.handleAppointment()">
+  const appointmentFormHtml = `<form id="appointmentForm" class="mx-auto" onsubmit="Appointment.newAppointment()">
   <div class="row">
     <div class="form-group">
       <label class="float-left">Doctor Name</label>

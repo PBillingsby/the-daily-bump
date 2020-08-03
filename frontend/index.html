@@ -52,7 +52,7 @@
               <input type="submit" placeholder="Add Name">
             </div>
           </form>
-          <select id="view-names" onchange="toggleMeaning()">
+          <select id="view-names" onchange="handleNameClick()">
             <option selected disabled value>View Saved Names</option>
           </select>
         </div>
@@ -67,7 +67,7 @@
         </div>
       </div>
     </div>
-    <div id="content-results" class="mx-auto pt-4">
+    <div id="content-results" class="mx-auto pt-4  sm-font-size">
       <div id="selected-name">
         <div>
           <div id="new-appointment-form" class="text-center"></div>
