@@ -22,8 +22,8 @@ class Name {
         </div>
       </div>
       `
+      Name.namesLoad()
     })
-    Name.namesLoad()
   }
   static namesLoad() {
     const nameDiv = document.getElementById('view-names')

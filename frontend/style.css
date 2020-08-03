@@ -21,6 +21,9 @@ header h4 {
 .logo-img {
   width: 5vw;
 }
+.opacity {
+  opacity: 0.75;
+}
 
 /* BABY */
 .card-img {
@@ -54,6 +57,10 @@ header h4 {
 .sm-font-size {
   font-size: 65%;
 }
+
+.normal-font-size {
+  font-size: 1rem !important;
+}
 /* NAMES */
 
 .name-info {
@@ -63,6 +70,10 @@ header h4 {
 
 .name-transition {
   transition: all 5s;
+}
+
+.btn-new {
+  background-color: #2A3F54;
 }
 /* MEDIA QUERIES */
 

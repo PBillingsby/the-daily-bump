@@ -23,7 +23,7 @@
         </div>
         <!-- WHEN THERE IS A BABY, BELOW DIV DISAPPEARS -->
         <div id="intro-div" class="d-inline-flex">
-          <div id="baby-form" class="text-center ml-5">
+          <div id="baby-form" class="text-center mx-auto ml-5">
             <form id="new-baby-form" class="p-3" onsubmit="Baby.newBaby()">
               <h5>Add Baby Information</h5>
               <div class="form-group">
@@ -44,12 +44,12 @@
       <!-- IF THERE IS NO BABY, A FORM WILL GO HERE -->
       <div id="content-box" class="pt-4 text-center">
         <div id="name-form" class="">
-          <h4 class="">Add Baby Names</h4>
+          <h4>Add Baby Names</h4>
 
           <form onsubmit="Name.babyNameSearch()">
             <div class="form-group">
-              <input type="text" id="add-name" placeholder="Search Baby Name">
-              <input type="submit" placeholder="Add Name">
+              <input type="text" id="add-name" class="m-2" placeholder="Search Baby Name">
+              <button placeholder="Add Name" class="btn-sm btn-info">Submit</button>
             </div>
           </form>
           <select id="view-names" onchange="handleNameClick()">
@@ -58,16 +58,16 @@
         </div>
         <div id="appointment-form">
           <!-- APPOINTMENT FORM AND APPOINTMENTS VIEW -->
-          <div class="appointment-grid text-center">
+          <div class="text-center">
             <h4>Appointments</h4>
-            <button id="add-appointment" class="m-2 btn-sm" onclick="Appointment.appointmentFormLoad()">Add Appointment</button>
-            <button id="view-appointment" class="m-2 btn-sm" onclick="Appointment.appointmentsLoad()">View Upcoming Appointments</button>
-            <button id="view-appointment" class="m-2 btn-sm" onclick="Appointment.appointmentsLoad()">Past Appointments</button>
+            <button id="add-appointment" class="m-2 btn-sm btn-info" onclick="Appointment.appointmentFormLoad()">Add Appointment</button>
+            <button id="view-appointment" class="m-2 btn-sm btn-info" onclick="Appointment.appointmentsLoad()">View Upcoming Appointments</button>
+            <button id="view-appointment" class="m-2 btn-sm btn-info" onclick="Appointment.appointmentsLoad()">Past Appointments</button>
           </div>
         </div>
       </div>
     </div>
-    <div id="content-results" class="mx-auto pt-4  sm-font-size">
+    <div id="content-results" class="mx-auto text-center pt-4 sm-font-size">
       <div id="selected-name">
         <div>
           <div id="new-appointment-form" class="text-center"></div>
@@ -82,8 +82,8 @@
         <h4>Add Image To Album</h4>
         <form id="baby-images" onsubmit="handleImage()">
           <div class="form-group">
-            <input type="file" id="image" accept=".jpg, .jpeg, .png" multiple>
-            <input type="submit" value="Add Image">
+            <input type="file" id="image"accept=".jpg, .jpeg, .png" multiple>
+            <button class="btn-sm btn-info">Add Image</button>
           </div>
         </form>
       </div>

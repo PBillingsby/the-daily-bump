@@ -91,34 +91,34 @@ function deleteAppointment(appointmentId) {
     document.getElementById(`appointment[${appointmentId}]`).remove()
   }
 
-  const appointmentFormHtml = `<form id="appointmentForm" class="mx-auto" onsubmit="Appointment.newAppointment()">
-  <div class="row">
+  const appointmentFormHtml = `<form id="appointmentForm" class="text-center" onsubmit="Appointment.newAppointment()">
+  <div class="col">
     <div class="form-group">
-      <label class="float-left">Doctor Name</label>
+      <label class="normal-font-size">Doctor Name</label>
       <input type="text" class="form-control" name="doctor-name" id="doctor-name" placeholder="Doctor Name">
     </div>
   </div>  
-  <div class="row">
+  <div class="col">
     <div class="form-group">
-      <label class="float-left">Appointment Date</label>
+      <label class="normal-font-size">Appointment Date</label>
       <input type="datetime-local" class="form-control" name="appointment-date" id="appointment-date" placeholder="Date">
     </div>
   </div>    
-  <div class="row">
+  <div class="col">
     <div class="form-group">   
-      <label class="float-left">Location</label>
+      <label class="normal-font-size">Location</label>
       <input type="text" name="loction" class="form-control" id="location" placeholder="Location">
     </div>
   </div>
-  <div class="row">
+  <div class="col">
     <div class="form-group">  
-      <label class="float-left">Additional Notes</label>
+      <label class="normal-font-size">Additional Notes</label>
       <input type="text" id="notes" class="form-control" placeholder="Notes">
     </div>
   </div>
-  <div class="row">
+  <div class="col">
     <div class="form-group"> 
-      <input type="submit" class="float-left">
+      <input type="submit">
     </div>
   </div>
 </form>`
