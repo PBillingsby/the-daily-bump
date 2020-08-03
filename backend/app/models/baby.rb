@@ -9,6 +9,6 @@ class Baby < ActiveRecord::Base
   has_many_attached :images
 
   def images_urls
-    self.images.map{|img| url_for(img)}
+    self.images.map{|img| [url_for(img), img.id]}
   end
 end
