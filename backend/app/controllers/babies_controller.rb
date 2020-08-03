@@ -23,12 +23,11 @@ class BabiesController < ApplicationController
   def update
     baby = Baby.find_by(id: 1)
     baby.images.attach(params[:image])
-    render json: baby
+    render head :no_content
   end
 
-  def images
-    baby = Baby.find_by(id: params[:id])
-    render json: baby, methods: [:images_url]
+  def destroy
+    byebug
   end
 
   def babies_params

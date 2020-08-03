@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :babies, only: [:create, :show, :index, :update]
+  resources :babies, only: [:create, :show, :index, :update, :destroy]
   resources :appointments, only: [:create, :show, :index, :destroy]
   resources :names, only: [:create, :index, :show, :destroy]
   get '/babies/:id/images', to: 'babies#images'
