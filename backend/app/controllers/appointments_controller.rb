@@ -1,7 +1,8 @@
 class AppointmentsController < ApplicationController
   def create
     appointment = Appointment.create(appointment_params)
-    render json: AppointmentSerializer.new(appointment).serialized_json
+    render json: appointment
+    # AppointmentSerializer.new(appointment).serialized_json
   end
 
   def index
