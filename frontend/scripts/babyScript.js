@@ -36,10 +36,11 @@ class Baby {
       else if (!babyObj.error) {
         babyObj.images_urls.forEach(img => {
           const imageDiv = document.createElement('div')
+          imageDiv.id = `image[${img[1]}]`
           let image = new Image()
           image.src = img
           image.classList.add('progress-image', 'm-3', 'rounded')
-          image.addEventListener('click', Baby.imageResize())
+          // image.addEventListener('click', Baby.imageResize())
           imageDiv.append(image)
           imageDiv.innerHTML += `<a href="#" onclick="deleteImage('${img[1]}')">Delete</a>`
           document.getElementById('images-loaded').append(imageDiv)
@@ -109,19 +110,12 @@ class Baby {
       baby.fetchBabyInformation()
     })
   }
-
-  static imageResize() {
-    event.target.classList.toggle('progress-clicked')
-  }
 }
 const newBabyWithId = new Baby(1)
 
 document.addEventListener('DOMContentLoaded', ()=> {
   event.preventDefault()
   newBabyWithId.fetchBabyInformation()
-  for (img in babySizes) {
-    document.getElementById('images-test').innerHTML += `<img src="${babySizes[img][0]}" class="card-img">`
-  }
 })
 function handleImage() {
   event.preventDefault()
@@ -133,14 +127,17 @@ function handleImage() {
   })
   .then(resp => resp.json())
   .then(babyObject => {
-    babyObject.fetchBabyInformation()
+    window.location.reload();
   })
 }
 function deleteImage(imgId) {
   event.preventDefault()
-  fetch(BASEURL + "/1" + "/?" + new URLSearchParams({image_id: imgId}), {
-    method: "DELETE"
+  fetch(BASEURL + `/1?image_id=${imgId}`, {
+    method: "DELETE",
+    body: JSON.stringify({img_id: imgId})
   })
+  document.getElementById(`image[${imgId}]`).remove()
+
 }
 
 
