@@ -43,10 +43,11 @@
       </div>
       <!-- IF THERE IS NO BABY, A FORM WILL GO HERE -->
       <div id="content-box" class="pt-4">
-        <div id="name-form" class="m4">
-          <h4>Add Baby Names</h4>
+        <div id="name-form" class="pl-5">
+          <h4>Baby Names</h4>
 
           <form onsubmit="Name.babyNameSearch()">
+            <label>Add Baby Name</label>
             <div class="form-group">
               <input type="text" id="add-name" placeholder="Search Baby Name">
               <button placeholder="Add Name" class="btn-sm btn-info">Submit</button>
@@ -61,12 +62,11 @@
           <div class="text-center">
             <h4>Appointments</h4>
             <button id="add-appointment" class="m-2 btn-sm btn-info" onclick="Appointment.appointmentFormLoad()">Add Appointment</button>
-            <button id="view-appointment" class="m-2 btn-sm btn-info" onclick="Appointment.appointmentsLoad()">View Upcoming Appointments</button>
-            <button id="view-appointment" class="m-2 btn-sm btn-info" onclick="Appointment.appointmentsLoad()">Past Appointments</button>
+            <button class="view-appointment m-2 btn-sm btn-info" onclick="Appointment.appointmentsLoad()">View Upcoming Appointments</button>
+            <button class="view-appointment m-2 btn-sm btn-info" onclick="Appointment.appointmentsLoad()">Past Appointments</button>
           </div>
         </div>
       </div>
-    </div>
     <div id="content-results" class="mx-auto text-center pt-4 sm-font-size">
       <div id="selected-name">
         <div>
@@ -76,17 +76,17 @@
       </div>
     </div>
     <div id="images" class="text-center pt-4">
-        <div id="images-loaded">
-          <h4>Images</h4>
-        </div>
-        <h4>Add Image To Album</h4>
-        <form id="baby-images" onsubmit="handleImage()">
-          <div class="form-group">
-            <input type="file" id="image"accept=".jpg, .jpeg, .png" multiple>
-            <button class="btn-sm btn-info">Add Image</button>
-          </div>
-        </form>
+      <h4>Images</h4>
+
+      <div id="images-loaded" class="mx-auto">
       </div>
+      <h4>Add Image To Album</h4>
+      <form id="baby-images" onsubmit="handleImage()">
+        <div class="form-group">
+          <input type="file" id="image"accept=".jpg, .jpeg, .png" multiple>
+          <button class="btn-sm btn-info">Add Image</button>
+        </div>
+      </form>
     </div>
   </body>
 </html>

@@ -8,10 +8,9 @@ class Appointment {
     this.appointmentLocation = appointmentLocation,
     this.appointmentNotes = appointmentNotes
   }
-
   appointmentHandle() {
     const ul = document.createElement('ul')
-    ul.classList.add('list-group', 'list-group-horizontal')
+    ul.classList.add('list-group', 'list-group-horizontal', 'pb-3')
     ul.id = `appointment[${this.id}]`
     for (let attribute in this) {
       let li = document.createElement('li')
@@ -53,7 +52,7 @@ class Appointment {
     .then(aptObject => {
       let newAppointment = new Appointment(aptObject.id, aptObject.doctor_name, aptObject.appointment_date, aptObject.location, aptObject.appointment_information)
       document.getElementById('appointmentForm').remove()
-      newAppointment.appointmentHandle()
+      document.getElementById('content-results').innerHTML = `<h4 class="text-danger">Appointment Added</h4>`
     }))
   }
   static appointmentsLoad() {

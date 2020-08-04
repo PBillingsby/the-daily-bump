@@ -15,6 +15,9 @@ header h4 {
 #introduction {
   max-width: 40vw;
 }
+#content-results {
+  max-width: 50%;
+}
 .container {
   display: grid;
 }
@@ -41,14 +44,19 @@ header h4 {
 .progress-clicked {
   width: 40vw;
 }
+
+/* IMAGES */
+#images-loaded {
+  max-width: 50rem;
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
 /* APPOINTMENTS */
 
 #content-box {
   display: grid;
   grid-template-columns: 1fr 1fr;
-}
-#content-results {
-  max-width: 50%;
 }
 .appointment-button {
   max-width: 40vw;
@@ -57,7 +65,9 @@ header h4 {
 .sm-font-size {
   font-size: 65%;
 }
-
+.appointment-attribute {
+  max-width: 10rem;
+}
 .normal-font-size {
   font-size: 1rem !important;
 }
