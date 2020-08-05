@@ -40,15 +40,14 @@ class Baby {
           let image = new Image()
           image.src = img
           image.classList.add('progress-image', 'm-3', 'rounded')
-          // image.addEventListener('click', Baby.imageResize())
           imageDiv.append(image)
+          image.setAttribute('onclick',"addImageClickEvent()")
           imageDiv.innerHTML += `<a href="#" onclick="deleteImage('${img[1]}')">Delete</a>`
           document.getElementById('images-loaded').append(imageDiv)
         })
       }
     })
   }
-
   noBabyHandle() {
     document.getElementById('name-form').style.display = "none"
     document.getElementById('view-names').style.display = "none"
@@ -70,8 +69,8 @@ class Baby {
     <div class="card bg-baby-green text-center">
       <div class="row">
         <div class="col">
-          <img src="${babySizes[this.weeksUntilDue][0]}" name="${babySizes[this.weeksUntilDue][1]}" class="card-img m-4 opacity">
-          <sub><strong>Baby Size:</strong> ${babySizes[this.weeksUntilDue][1]}</sub>
+          <img src="${babySizes[this.weeksUntilDue][0]}" name="${babySizes[this.weeksUntilDue][1]}" class="progress-image img m-4 opacity">
+          <p><strong>Baby Size:</strong> ${babySizes[this.weeksUntilDue][1]}</p>
         </div>
         <div class="col-lg-8 pt-4" id="main-baby-information">
           <div class="card-body d-inline-flex text-center mx-auto">
@@ -86,7 +85,6 @@ class Baby {
     </div>`
     document.getElementById('intro-div').remove()
   }
-
   static newBaby() {
     event.preventDefault()
   
@@ -137,9 +135,11 @@ function deleteImage(imgId) {
     body: JSON.stringify({img_id: imgId})
   })
   document.getElementById(`image[${imgId}]`).remove()
-
 }
 
+function addImageClickEvent() {
+  event.target.classList.toggle('progress-clicked')
+}
 
 let babySizes = {
   36: ["images/size-images/poppy.png", "Poppy Seed"], // DONE

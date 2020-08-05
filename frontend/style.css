@@ -42,15 +42,18 @@ header h4 {
 }
 
 .progress-clicked {
-  width: 40vw;
+  width: 50vw;
 }
 
 /* IMAGES */
 #images-loaded {
   max-width: 50rem;
-  border: 1px solid black;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+}
+
+.image-resize {
+  height: 1000px;
 }
 /* APPOINTMENTS */
 
