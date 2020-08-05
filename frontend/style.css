@@ -38,11 +38,13 @@ header h4 {
 
 .progress-image {
   width: 10vw;
+  height: 15vh;
   border: 1px solid pink;
 }
 
 .progress-clicked {
   width: 50vw;
+  height: 75vh;
 }
 
 /* IMAGES */
@@ -50,10 +52,6 @@ header h4 {
   max-width: 50rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-}
-
-.image-resize {
-  height: 1000px;
 }
 /* APPOINTMENTS */
 

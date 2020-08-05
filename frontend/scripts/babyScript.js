@@ -21,7 +21,7 @@ class Baby {
       }
       else {
         // If the baby object is found, show appointment form
-        baby.fetchImages()
+        Baby.fetchImages()
         baby.thisBabyHandle()
       }
     })
@@ -63,7 +63,7 @@ class Baby {
     </div>`
     document.getElementById('intro-div').remove()
   }
-  fetchImages() {
+  static fetchImages() {
     fetch(BASEURL + "/1")
     .then(resp => resp.json())
     .then(babyObj => {
@@ -78,12 +78,28 @@ class Baby {
           image.src = img
           image.classList.add('progress-image', 'm-3', 'rounded')
           imageDiv.append(image)
-          image.setAttribute('onclick',"addImageClickEvent()")
+          image.setAttribute('onclick',"Baby.addImageClickEvent()")
           imageDiv.innerHTML += `<a href="#" onclick="deleteImage('${img[1]}')">Delete</a>`
           document.getElementById('images-loaded').append(imageDiv)
         })
       }
     })
+  }
+  static addImageClickEvent() {
+    event.preventDefault()
+    const imageDiv = document.getElementById('images-loaded')
+    event.target.classList.toggle('progress-clicked')
+    const eventClassList = [ ...event.target.classList ]
+    if (eventClassList.includes('progress-clicked')) {
+      event.target.classList.add('text-center')
+      imageDiv.style.display = "block"
+      imageDiv.innerHTML = event.target.outerHTML
+    }
+    else {
+      imageDiv.innerHTML = ""
+      imageDiv.style.display = ""
+      Baby.fetchImages()
+    }
   }
   static newBaby() {
     event.preventDefault()
@@ -135,12 +151,6 @@ function deleteImage(imgId) {
     body: JSON.stringify({img_id: imgId})
   })
   document.getElementById(`image[${imgId}]`).remove()
-}
-
-function addImageClickEvent() {
-  debugger
-  document.getElementById('images-loaded').innerText = `${event.target.innerHTML}`
-  event.target.classList.toggle('progress-clicked')
 }
 
 let babySizes = {
