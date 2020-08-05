@@ -15,9 +15,11 @@ class Name {
       document.getElementById('content-results').innerHTML =
       `<div id="name-info"class="row name-transition">
         <div class="card card-body name-info"">
-          <h4>Meaning of ${name.name}</h4>
-          <p>${name.meaning}</p>
-          <p><strong>People think this name is:</strong> ${name.definition}</p>
+          <h2>${name.name}</h2><hr >
+          <h5>Meaning</h5>
+          <p>${name.meaning}</p><hr>
+          <p>Usage: ${name.usage}</p><hr>
+          <p>People think this name is: ${name.definition}</p>
           <a href="#" onclick="Name.deleteName(${name.id})" class="text-center">Delete</a>
         </div>
       </div>

@@ -90,7 +90,7 @@ function deleteAppointment(appointmentId) {
     document.getElementById(`appointment[${appointmentId}]`).remove()
   }
 
-  const appointmentFormHtml = `<form id="appointmentForm" class="text-center" onsubmit="Appointment.newAppointment()">
+  const appointmentFormHtml = `<form id="appointmentForm" class="text-center" autocomplete="off" onsubmit="Appointment.newAppointment()">
   <div class="col">
     <div class="form-group">
       <label class="normal-font-size">Doctor Name</label>

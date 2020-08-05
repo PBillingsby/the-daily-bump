@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif&family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Domine&family=Roboto&display=swap');
 /* MAIN */
 body {
   margin: 0;
   background-color: #F1DACF !important;
+  font-family: Roboto !important;
 }
 header {
   justify-content: space-between !important;
   background-color: #eeebd9;
 }
-header h4 {
-  display: inline;
-  font-family: Poppins;
+header, h4, h5 {
+  font-family: Domine;
 }
 #introduction {
   max-width: 40vw;
@@ -64,7 +64,7 @@ header h4 {
   max-height: 10vh;
 }
 .sm-font-size {
-  font-size: 65%;
+  font-size: 80%;
 }
 .appointment-attribute {
   max-width: 10rem;
