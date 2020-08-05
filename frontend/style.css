@@ -75,7 +75,7 @@ header, h4, h5 {
 /* NAMES */
 
 .name-info {
-  max-height: 30vh;
+  max-height: 80vh;
   overflow: scroll;
 }
 
