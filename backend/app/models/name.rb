@@ -8,12 +8,15 @@ class Name < ActiveRecord::Base
     doc = Nokogiri::HTML(unparsed_url)
     # FIX RETURN VALUE FROM SCRAPER FOR DEFINITION
     if !doc.css('section').first.nil?
+      name_usage = doc.css('div.infoname')[1].text.gsub("Usage ", "")
       name_definition = doc.xpath("//div[@style='text-align:justify']").text.gsub(/\R+/, '')
       self.meaning = doc.css('section').first.children[3].text.gsub(/\R+/, '')
       self.definition = name_definition.split(" ").map{|n| n.capitalize}.join(" ")
+      self.usage = doc.css('div.infoname')[1].text.gsub("Usage ", "")
     else
       self.meaning = "No Meaning Found"
       self.definition = "No Definitions Found"
+      self.usage = "No Usage Found"
     end
   end
 end

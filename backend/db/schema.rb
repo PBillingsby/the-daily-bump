@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2020_07_28_165818) do
     t.bigint "baby_id"
     t.string "name"
     t.text "meaning"
+    t.string "usage"
     t.string "definition"
     t.index ["baby_id"], name: "index_names_on_baby_id"
   end
