@@ -20,7 +20,7 @@ Change into frontend directory and run open index.html
 * [ActiveRecord](https://github.com/rails/rails/tree/master/activerecord) - Ruby library ORM
 
 ## Contributing
-  For pull requests and bug reports: https://github.com/PBillingsby/skate-mate-project
+  For pull requests and bug reports: https://github.com/PBillingsby/the-daily-bump
 
 ## Thanks
 Flatiron School
