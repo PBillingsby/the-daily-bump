@@ -27,7 +27,6 @@ gem 'rack-cors'
 
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'nokogiri'
-gem 'fast_jsonapi'
 gem 'httparty', '~> 0.13.7'
 gem 'nokogiri-styles'
 

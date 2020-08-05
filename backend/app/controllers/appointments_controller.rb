@@ -2,7 +2,6 @@ class AppointmentsController < ApplicationController
   def create
     appointment = Appointment.create(appointment_params)
     render json: appointment
-    # AppointmentSerializer.new(appointment).serialized_json
   end
 
   def index
@@ -14,7 +13,7 @@ class AppointmentsController < ApplicationController
     if Appointment.count == 0 || appointments.empty?
       render json: {error: 'No Appointments Yet'}
     else
-      render json: AppointmentSerializer.new(appointments).serialized_json 
+      render json: appointments
     end
   end
 
