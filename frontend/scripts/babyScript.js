@@ -14,7 +14,7 @@ class Baby {
     fetch(BASEURL + "/1")
     .then(resp => resp.json())
     .then(babyObject => {
-      let baby = new Baby(babyObject.id, babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_due, Math.floor(babyObject.days_until_due / 7))
+      const baby = new Baby(babyObject.id, babyObject.due_date, babyObject.mother, babyObject.father, babyObject.days_until_due, Math.floor(babyObject.days_until_due / 7))
       if (babyObject.error) {
         // remove appointment form
         baby.noBabyHandle()
@@ -74,7 +74,7 @@ class Baby {
         babyObj.images_urls.forEach(img => {
           const imageDiv = document.createElement('div')
           imageDiv.id = `image[${img[1]}]`
-          let image = new Image()
+          const image = new Image()
           image.src = img
           image.classList.add('progress-image', 'm-3', 'rounded')
           imageDiv.append(image)
@@ -120,7 +120,7 @@ class Baby {
     .then(resp => resp.json())
     .then(obj => {
       document.getElementById('appointment-form').style.display = "block"
-      let baby = new Baby(obj.id, obj.due_date, obj.mother, obj.father, obj.days_until_due, Math.floor(obj.days_until_due / 7))
+      const baby = new Baby(obj.id, obj.due_date, obj.mother, obj.father, obj.days_until_due, Math.floor(obj.days_until_due / 7))
       baby.fetchBabyInformation()
     })
   }

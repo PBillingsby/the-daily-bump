@@ -66,13 +66,13 @@ class Appointment {
         document.getElementById('content-results').innerHTML = `<h5>${apts.error}</h5>`
       }
       else {
-        for (let appointment in apts.data) {
-          let dataArray = apts.data[appointment].attributes
-          let formattedDateTime = dataArray.appointment_date.split('T')
+        for (let appointment in apts) {
+          const dataArray = apts[appointment]
+          const formattedDateTime = dataArray.appointment_date.split('T')
           let time
           formattedDateTime[1].slice(0,2) > 12 ? time = "PM" : time = "AM"
-          let newDateTime = new Date(formattedDateTime[0]).toLocaleDateString() + ' @ ' + formattedDateTime[1].slice(0,5) + time          
-          let newAppointment = new Appointment(dataArray.id, dataArray.doctor_name, newDateTime, dataArray.location, dataArray.appointment_information)
+          const newDateTime = new Date(formattedDateTime[0]).toLocaleDateString() + ' @ ' + formattedDateTime[1].slice(0,5) + time          
+          const newAppointment = new Appointment(dataArray.id, dataArray.doctor_name, newDateTime, dataArray.location, dataArray.appointment_information)
           newAppointment.appointmentHandle()
         }
       }
