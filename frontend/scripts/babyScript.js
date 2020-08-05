@@ -26,28 +26,6 @@ class Baby {
       }
     })
   }
-  fetchImages() {
-    fetch(BASEURL + "/1")
-    .then(resp => resp.json())
-    .then(babyObj => {
-      if (babyObj.images_urls.length === 0) {
-        document.getElementById('images-loaded').remove()
-      }
-      else if (!babyObj.error) {
-        babyObj.images_urls.forEach(img => {
-          const imageDiv = document.createElement('div')
-          imageDiv.id = `image[${img[1]}]`
-          let image = new Image()
-          image.src = img
-          image.classList.add('progress-image', 'm-3', 'rounded')
-          imageDiv.append(image)
-          image.setAttribute('onclick',"addImageClickEvent()")
-          imageDiv.innerHTML += `<a href="#" onclick="deleteImage('${img[1]}')">Delete</a>`
-          document.getElementById('images-loaded').append(imageDiv)
-        })
-      }
-    })
-  }
   noBabyHandle() {
     document.getElementById('name-form').style.display = "none"
     document.getElementById('view-names').style.display = "none"
@@ -84,6 +62,28 @@ class Baby {
       </div>
     </div>`
     document.getElementById('intro-div').remove()
+  }
+  fetchImages() {
+    fetch(BASEURL + "/1")
+    .then(resp => resp.json())
+    .then(babyObj => {
+      if (babyObj.images_urls.length === 0) {
+        document.getElementById('images-loaded').remove()
+      }
+      else if (!babyObj.error) {
+        babyObj.images_urls.forEach(img => {
+          const imageDiv = document.createElement('div')
+          imageDiv.id = `image[${img[1]}]`
+          let image = new Image()
+          image.src = img
+          image.classList.add('progress-image', 'm-3', 'rounded')
+          imageDiv.append(image)
+          image.setAttribute('onclick',"addImageClickEvent()")
+          imageDiv.innerHTML += `<a href="#" onclick="deleteImage('${img[1]}')">Delete</a>`
+          document.getElementById('images-loaded').append(imageDiv)
+        })
+      }
+    })
   }
   static newBaby() {
     event.preventDefault()
@@ -138,6 +138,8 @@ function deleteImage(imgId) {
 }
 
 function addImageClickEvent() {
+  debugger
+  document.getElementById('images-loaded').innerText = `${event.target.innerHTML}`
   event.target.classList.toggle('progress-clicked')
 }
 
