@@ -1,4 +1,8 @@
 const BASEURL = 'http://localhost:3000/babies'
+document.addEventListener('DOMContentLoaded', ()=> {
+  event.preventDefault()
+  newBabyWithId.fetchBabyInformation()
+})
 class Baby {
   constructor(babyId, dueDate, mother, father, daysUntilDue, weeksUntilDue) {
     this.babyId = babyId,
@@ -123,12 +127,6 @@ class Baby {
     })
   }
 }
-const newBabyWithId = new Baby(1)
-
-document.addEventListener('DOMContentLoaded', ()=> {
-  event.preventDefault()
-  newBabyWithId.fetchBabyInformation()
-})
 function handleImage() {
   event.preventDefault()
   const formData = new FormData()
@@ -150,6 +148,9 @@ function deleteImage(imgId) {
   })
   document.getElementById(`image[${imgId}]`).remove()
 }
+
+
+const newBabyWithId = new Baby(1)
 
 let babySizes = {
   36: ["images/size-images/poppy.png", "Poppy Seed"], // DONE

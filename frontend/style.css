@@ -2,12 +2,12 @@
 /* MAIN */
 body {
   margin: 0;
-  background-color: #F1DACF !important;
+  background-color: #f0d2c942 !important;
   font-family: Roboto !important;
 }
 header {
   justify-content: space-between !important;
-  background-color: #eeebd9;
+  background-color: #e7eed9;
 }
 header, h4, h5 {
   font-family: Domine;
@@ -19,7 +19,9 @@ header, h4, h5 {
   max-width: 50%;
 }
 .container {
-  border: 2px solid #EEEBD9;
+  background-color:#e7eed9 !important;
+  border-radius: 4px;
+  margin-bottom: 5vh;
 }
 .logo-img {
   width: 5vw;
@@ -37,7 +39,7 @@ header, h4, h5 {
   width: 13vw !important;
 }
 .bg-baby {
-  background-color: #eeebd9 !important;
+  background-color:	#d9eeeb62 !important;
 }
 
 .progress-image {
@@ -49,6 +51,10 @@ header, h4, h5 {
 .progress-clicked {
   width: 50vw;
   height: 75vh;
+}
+
+.card {
+  background-color: #E2EEE1 !important;
 }
 
 /* IMAGES */
