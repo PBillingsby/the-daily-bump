@@ -118,13 +118,19 @@ class Baby {
     })
     .then(resp => resp.json())
     .then(obj => {
-      document.getElementById('appointment-form').style.display = "block"
-      const baby = new Baby(obj.id, obj.due_date, obj.mother, obj.father, obj.days_until_due, Math.floor(obj.days_until_due / 7))
-      baby.fetchBabyInformation()
+      if (obj.due_date_error) {
+        document.getElementById('content-results').innerText = obj.due_date_error[0]
+      }
+      else {
+       document.getElementById('appointment-form').style.display = "block"
+        const baby = new Baby(obj.id, obj.due_date, obj.mother, obj.father, obj.days_until_due, Math.floor(obj.days_until_due / 7))
+        location.reload()
+        baby.fetchBabyInformation() 
+      }
+      
     })
   }
 }
-
 const newBabyWithId = new Baby(1)
 document.addEventListener('DOMContentLoaded', ()=> {
   event.preventDefault()
@@ -152,6 +158,9 @@ const deleteImage = (imgId) => {
   document.getElementById(`image[${imgId}]`).remove()
 }
 
+let todaysDate = () => {
+  return new Date()
+}
 const babySizes = {
   36: ["images/size-images/poppy.png", "Poppy Seed"], // DONE
   35: ["images/size-images/apple.png", "Apple Seed"], 

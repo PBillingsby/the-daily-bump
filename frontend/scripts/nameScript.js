@@ -77,8 +77,8 @@ class Name {
 }
 document.addEventListener('DOMContentLoaded', () => {
   event.preventDefault()
-
   Name.namesLoad()
+
 })
 
 const handleNameClick = () => {
