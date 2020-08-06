@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Name.namesLoad()
 })
 
-function handleNameClick() {
+const handleNameClick = () => {
   const nameId = event.target.children[event.target.selectedIndex].value.match(/\d+/)[0]
   fetch(NAMEURL + nameId)
   .then(resp => resp.json())

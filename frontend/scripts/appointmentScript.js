@@ -83,41 +83,41 @@ class Appointment {
   }
 }
 
-function deleteAppointment(appointmentId) {
+const deleteAppointment = (appointmentId) => {
   event.preventDefault()
   fetch(APPOINTMENT_BASE_URL + appointmentId, {
     method: 'DELETE'})
     document.getElementById(`appointment[${appointmentId}]`).remove()
   }
 
-  const appointmentFormHtml = `<form id="appointmentForm" class="text-center" autocomplete="off" onsubmit="Appointment.newAppointment()">
-  <div class="col">
-    <div class="form-group">
-      <label class="normal-font-size">Doctor Name</label>
-      <input type="text" class="form-control" name="doctor-name" id="doctor-name" placeholder="Doctor Name">
-    </div>
-  </div>  
-  <div class="col">
-    <div class="form-group">
-      <label class="normal-font-size">Appointment Date</label>
-      <input type="datetime-local" class="form-control" name="appointment-date" id="appointment-date" placeholder="Date">
-    </div>
-  </div>    
-  <div class="col">
-    <div class="form-group">   
-      <label class="normal-font-size">Location</label>
-      <input type="text" name="loction" class="form-control" id="location" placeholder="Location">
-    </div>
+const appointmentFormHtml = `<form id="appointmentForm" class="text-center" autocomplete="off" onsubmit="Appointment.newAppointment()">
+<div class="col">
+  <div class="form-group">
+    <label class="normal-font-size">Doctor Name</label>
+    <input type="text" class="form-control" name="doctor-name" id="doctor-name" placeholder="Doctor Name">
   </div>
-  <div class="col">
-    <div class="form-group">  
-      <label class="normal-font-size">Additional Notes</label>
-      <input type="text" id="notes" class="form-control" placeholder="Notes">
-    </div>
+</div>  
+<div class="col">
+  <div class="form-group">
+    <label class="normal-font-size">Appointment Date</label>
+    <input type="datetime-local" class="form-control" name="appointment-date" id="appointment-date" placeholder="Date">
   </div>
-  <div class="col">
-    <div class="form-group"> 
-      <input type="submit">
-    </div>
+</div>    
+<div class="col">
+  <div class="form-group">   
+    <label class="normal-font-size">Location</label>
+    <input type="text" name="loction" class="form-control" id="location" placeholder="Location">
   </div>
+</div>
+<div class="col">
+  <div class="form-group">  
+    <label class="normal-font-size">Additional Notes</label>
+    <input type="text" id="notes" class="form-control" placeholder="Notes">
+  </div>
+</div>
+<div class="col">
+  <div class="form-group"> 
+    <input type="submit">
+  </div>
+</div>
 </form>`

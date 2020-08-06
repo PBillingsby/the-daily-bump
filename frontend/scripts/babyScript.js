@@ -1,8 +1,5 @@
 const BASEURL = 'http://localhost:3000/babies'
-document.addEventListener('DOMContentLoaded', ()=> {
-  event.preventDefault()
-  newBabyWithId.fetchBabyInformation()
-})
+
 class Baby {
   constructor(babyId, dueDate, mother, father, daysUntilDue, weeksUntilDue) {
     this.babyId = babyId,
@@ -127,7 +124,13 @@ class Baby {
     })
   }
 }
-function handleImage() {
+
+const newBabyWithId = new Baby(1)
+document.addEventListener('DOMContentLoaded', ()=> {
+  event.preventDefault()
+  newBabyWithId.fetchBabyInformation()
+})
+const handleImage = () => {
   event.preventDefault()
   const formData = new FormData()
   formData.append('image', document.getElementById('image').files[0])
@@ -140,7 +143,7 @@ function handleImage() {
     window.location.reload();
   })
 }
-function deleteImage(imgId) {
+const deleteImage = (imgId) => {
   event.preventDefault()
   fetch(BASEURL + `/1?image_id=${imgId}`, {
     method: "DELETE",
@@ -149,10 +152,7 @@ function deleteImage(imgId) {
   document.getElementById(`image[${imgId}]`).remove()
 }
 
-
-const newBabyWithId = new Baby(1)
-
-let babySizes = {
+const babySizes = {
   36: ["images/size-images/poppy.png", "Poppy Seed"], // DONE
   35: ["images/size-images/apple.png", "Apple Seed"], 
   34: ["images/size-images/sweet-pea.png", "Sweet Pea"], // DONE
