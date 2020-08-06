@@ -63,6 +63,8 @@ class Name {
       const newName = new Name(nameObj.name, nameObj.meaning, nameObj.definition, nameObj.id)
       newName.toggleMeaning()
     })
+    event.target.querySelector('input').value = ""
+
   }
   static deleteName(nameId) {
     event.preventDefault()
