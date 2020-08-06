@@ -19,7 +19,7 @@ header, h4, h5 {
   max-width: 50%;
 }
 .container {
-  display: grid;
+  border: 2px solid #EEEBD9;
 }
 .logo-img {
   width: 5vw;
@@ -27,19 +27,23 @@ header, h4, h5 {
 .opacity {
   opacity: 0.75;
 }
-
+#content-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  
+}
 /* BABY */
 .card-img {
   width: 13vw !important;
 }
-.bg-baby-green {
+.bg-baby {
   background-color: #eeebd9 !important;
 }
 
 .progress-image {
   width: 10vw;
   height: 15vh;
-  border: 1px solid pink;
+  border-radius: 5px;
 }
 
 .progress-clicked {
@@ -55,10 +59,7 @@ header, h4, h5 {
 }
 /* APPOINTMENTS */
 
-#content-box {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
+
 .appointment-button {
   max-width: 40vw;
   max-height: 10vh;

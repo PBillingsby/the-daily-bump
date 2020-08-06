@@ -1,6 +1,4 @@
-
 const BASEURL = 'http://localhost:3000/babies'
-
 class Baby {
   constructor(babyId, dueDate, mother, father, daysUntilDue, weeksUntilDue) {
     this.babyId = babyId,
@@ -44,19 +42,19 @@ class Baby {
     // CREATE HTML FOR BABY INFORMATION DIV
       const formattedDate = this.dueDate.split('-')
       document.getElementById('baby-card').innerHTML = `
-    <div class="card bg-baby-green text-center">
+    <div class="card bg-baby text-center">
       <div class="row">
-        <div class="col">
-          <img src="${babySizes[this.weeksUntilDue][0]}" name="${babySizes[this.weeksUntilDue][1]}" class="progress-image img m-4 opacity">
+        <div class="col  mt-4">
+          <img src="${babySizes[this.weeksUntilDue][0]}" name="${babySizes[this.weeksUntilDue][1]}" class="progress-image img opacity">
           <p><strong>Baby Size:</strong> ${babySizes[this.weeksUntilDue][1]}</p>
         </div>
         <div class="col-lg-8 pt-4" id="main-baby-information">
-          <div class="card-body d-inline-flex text-center mx-auto">
-            <span class="p-3 m-2 border mx-auto"><h6>Due Date</h6> <p>${formattedDate[1]}/${formattedDate[2]}/${formattedDate[0]}</p></span>
-            <span class="p-3 m-2 border mx-auto"><h6>Mother</h6> <p>${this.mother}</p></span>
-            <span class="p-3 m-2 border mx-auto"><h6>Father</h6> <p>${this.father}</p></span>
-            <span class="p-3 m-2 border mx-auto"><h6>Weeks Until Due</h6> <p class="text-center">${Math.floor(this.weeksUntilDue)}</p></span>
-            <span class="p-3 m-2 border mx-auto"><h6>Days Until Due</h6> <p class="text-center">${this.daysUntilDue}</p></span>
+          <div class="card-body d-inline-flex text-center">
+            <span class="p-3 m-2 border mx-auto"><h6><u>Due Date</u></h6> <p>${formattedDate[1]}/${formattedDate[2]}/${formattedDate[0]}</p></span>
+            <span class="p-3 m-2 border mx-auto"><h6><u>Mother</u></h6> <p>${this.mother}</p></span>
+            <span class="p-3 m-2 border mx-auto"><h6><u>Father</u></h6> <p>${this.father}</p></span>
+            <span class="p-3 m-2 border mx-auto"><h6><u>Weeks Until Due</u></h6> <p class="text-center">${Math.floor(this.weeksUntilDue)}</p></span>
+            <span class="p-3 m-2 border mx-auto"><h6><u>Days Until Due</u></h6> <p class="text-center">${this.daysUntilDue}</p></span>
           </div>
         </div>
       </div>
