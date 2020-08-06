@@ -3,8 +3,13 @@ class BabiesController < ApplicationController
   
   def create
     baby = Baby.create(babies_params)
-    baby.days_until_due = params[:days_until_due]
-    render json: baby
+    if baby.errors.any?
+      render json: baby.errors
+    end
+    if baby.save
+      baby.days_until_due = params[:days_until_due]
+      render json: baby
+    end
   end
 
   def show
