@@ -4,7 +4,7 @@ Keep track of your pregnancy appointments, images and name choices
 
 ## Installing
 
-Video walkthrough: https://drive.google.com/file/d/1mhQACLQU08lcD7Nl0vudLDoO0gzntU4h/view?usp=sharing 
+Video walkthrough: https://drive.google.com/file/d/1SfQKNoBMk6M8834-uQq-eEQlu7WRSrx3/view?usp=sharing
 
 To use The-Daily-Bump:
 Clone https://github.com/PBillingsby/the-daily-bump.git and change into directory.
